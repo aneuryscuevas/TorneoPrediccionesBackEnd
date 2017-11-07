@@ -16,14 +16,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.LeagueId, "League", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("LeagueId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("LeagueId", null, htmlAttributes: new { @class = "form-control MasterDdl" })
                 @Html.ValidationMessageFor(model => model.LeagueId, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.TeamId, "Team", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("TeamId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("TeamId", null, htmlAttributes: new { @class = "form-control DetailDdl" })
                 @Html.ValidationMessageFor(model => model.TeamId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -94,6 +94,6 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
-        var Url = '@Url.Action("GetTeams", "Generic")';
+        var Url = '@Url.Action("GetTeams","Generic")';
     </script>
 }

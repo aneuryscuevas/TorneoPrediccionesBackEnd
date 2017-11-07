@@ -36,7 +36,7 @@ namespace API.Controllers
                     {
                         GroupId = group.GroupId,
                         GroupUsers = ToGroupUserResponse(group.GroupUsers),
-                        Logo = group.Logo,
+                        Logo = group.LogoG,
                         Name = group.Name,
                         Owner = group.Owner,
                         OwnerId = group.OwnerId,

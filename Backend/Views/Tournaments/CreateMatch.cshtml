@@ -78,10 +78,15 @@
             </div>
         </div>
     </div>
-}
+ 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
-        var Url = '@Url.Action("GetTeams", "Generic")';
+        var Url = '@Url.Action("GetTeams","Generic")';
+        $(function () {
+            $('#DateString').datetimepicker({ format: 'YYYY/MM/DD' });
+            $('#TimeString').datetimepicker({ format: 'hh:mm A' });
+        });
     </script>
+}
 }

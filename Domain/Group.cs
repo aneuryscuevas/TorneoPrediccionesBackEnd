@@ -20,7 +20,7 @@ namespace Domain
         public int OwnerId { get; set; }
 
         [DataType(DataType.ImageUrl)]
-        public string Logo { get; set; }
+        public string LogoG { get; set; }
 
         [JsonIgnore]
         public virtual User Owner { get; set; }
