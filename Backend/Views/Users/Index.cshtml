@@ -45,9 +45,9 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @if (!string.IsNullOrEmpty(item.FavoriteTeam.Logo))
+                @if (!string.IsNullOrEmpty(item.FavoriteTeam.LogoT))
                 {
-                    <img src="@Url.Content(item.FavoriteTeam.Logo)" alt="Image" style="width:60px;height:60px;max-width: 100%; height: auto;" />
+                    <img src="@Url.Content(item.FavoriteTeam.LogoT)" alt="Image" style="width:60px;height:60px;max-width: 100%; height: auto;" />
                 }
             </td>
             <td>

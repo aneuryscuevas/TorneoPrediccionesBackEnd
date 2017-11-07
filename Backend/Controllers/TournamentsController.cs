@@ -921,14 +921,14 @@ namespace Backend.Controllers
                 var pic = string.Empty;
                 var folder = "~/Content/Tournaments";
 
-                if (view.LogoFile != null)
+                if (view.LogoToFile != null)
                 {
-                    pic = FilesHelper.UploadPhoto(view.LogoFile, folder,"");
+                    pic = FilesHelper.UploadPhoto(view.LogoToFile, folder,"");
                     pic = string.Format("{0}/{1}", folder, pic);
                 }
 
                 var tournament = ToTournament(view);
-                tournament.Logo = pic;
+                tournament.LogoTo = pic;
                 _db.Tournaments.Add(tournament);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -942,7 +942,7 @@ namespace Backend.Controllers
             return new Tournament
             {
                 Groups = view.Groups,
-                Logo = view.Logo,
+                LogoTo = view.LogoTo,
                 Name = view.Name,
                 TournamentId = view.TournamentId,
                 Order = view.Order,
@@ -973,7 +973,7 @@ namespace Backend.Controllers
             return new TournamentView
             {
                 Groups = tournament.Groups,
-                Logo = tournament.Logo,
+                LogoTo = tournament.LogoTo,
                 Name = tournament.Name,
                 TournamentId = tournament.TournamentId,
                 Order = tournament.Order,
@@ -988,17 +988,17 @@ namespace Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                var pic = view.Logo;
+                var pic = view.LogoTo;
                 var folder = "~/Content/Tournaments";
 
-                if (view.LogoFile != null)
+                if (view.LogoToFile != null)
                 {
-                    pic = FilesHelper.UploadPhoto(view.LogoFile, folder,"");
+                    pic = FilesHelper.UploadPhoto(view.LogoToFile, folder,"");
                     pic = string.Format("{0}/{1}", folder, pic);
                 }
 
                 var tournament = ToTournament(view);
-                tournament.Logo = pic;
+                tournament.LogoTo = pic;
                 _db.Entry(tournament).State = EntityState.Modified;
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -1823,7 +1823,7 @@ namespace Backend.Controllers
     //                }
 
     //                var tournament = ToTournament(view);
-    //                tournament.Logo = pic;
+    //                tournament.Logoxx = pic;
 
     //                _db.Tournaments.Add(tournament);
     //                await _db.SaveChangesAsync();
@@ -1838,7 +1838,7 @@ namespace Backend.Controllers
     //            return new Tournament
     //            {
     //                TournamentId = view.TournamentId,
-    //                Logo = view.Logo,
+    //                Logoxx = view.Logoxx,
     //                Name = view.Name,
     //                IsActive = view.IsActive,
     //                Order = view.Order
@@ -1867,7 +1867,7 @@ namespace Backend.Controllers
     //            return new TournamentView
     //            {
     //                TournamentId = tournament.TournamentId,
-    //                Logo = tournament.Logo,
+    //                Logoxx = tournament.Logoxx,
     //                Name = tournament.Name,
     //                IsActive = tournament.IsActive,
     //                Order = tournament.Order
@@ -1881,7 +1881,7 @@ namespace Backend.Controllers
     //            if (ModelState.IsValid)
     //            {
 
-    //                var pic = view.Logo;
+    //                var pic = view.Logoxx;
     //                var folder = "~/Content/Logos";
 
     //                if (view.LogoFile != null)
@@ -1891,7 +1891,7 @@ namespace Backend.Controllers
     //                }
 
     //                var tournament = ToTournament(view);
-    //                tournament.Logo = pic;
+    //                tournament.Logoxx = pic;
 
     //                _db.Entry(tournament).State = EntityState.Modified;
     //                await _db.SaveChangesAsync();

@@ -246,3 +246,4 @@ W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Debug\API
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Debug\API.csproj.GenerateResource.Cache
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Debug\API.dll
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Debug\API.pdb
+W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Debug\API.Migrations.Addingnewcolumnnames.resources

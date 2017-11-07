@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ using Domain;
 namespace API.Controllers
 {
     [RoutePrefix("api/Tournaments")]
-    [Authorize(Roles = "User")]
+   [Authorize(Roles = "User")]
     public class TournamentsController : ApiController
     {
         private readonly DataContextLocal _db = new DataContextLocal();
@@ -119,6 +120,7 @@ namespace API.Controllers
 
             return Ok(matches.OrderBy(m => m.DateTime));
         }
+     
         //[Route("GetMatchesToPredict/{tournamentId}/{userId}")]
         //public async Task<IHttpActionResult> GetMatchesToPredict(int tournamentId, int userId)
         //{
@@ -292,26 +294,56 @@ namespace API.Controllers
         //}
         public async Task<IHttpActionResult> GetTournaments()
         {
-            var tournaments = await _db.Tournaments
-                .Where(t => t.IsActive)
-                .OrderBy(t => t.Order)
-                .ToListAsync();
-
-            var list = new List<TournamentResponse>();
-
-            foreach (var tournament in tournaments)
+            try
             {
-                list.Add(new TournamentResponse
-                {
-                    Dates = tournament.Dates.ToList(),
-                    Groups = tournament.Groups.ToList(),
-                    Logo = tournament.Logo,
-                    Name = tournament.Name,
-                    TournamentId = tournament.TournamentId,
-                });
-            }
+                var tournaments = await _db.Tournaments
+                    .Where(t => t.IsActive)
+                    .OrderBy(t => t.Order)
+                    .ToListAsync();
 
-            return Ok(list);
+                var list = new List<TournamentResponse>();
+
+                foreach (var tournament in tournaments)
+                {
+                    list.Add(new TournamentResponse
+                    {
+                        Dates = tournament.Dates.ToList(),
+                        Groups = tournament.Groups.ToList(),
+                        LogoTo = tournament.LogoTo,
+                        Name = tournament.Name,
+                        TournamentId = tournament.TournamentId,
+                    });
+                }
+
+                return Ok(list);
+            }
+            
+            catch (DbEntityValidationException e)
+            {
+                var message = string.Empty;
+                foreach (var eve in e.EntityValidationErrors)
+                {
+
+                    //Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                    //    eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    message = string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        //Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                        //    ve.PropertyName, ve.ErrorMessage);
+                        message += string.Format("\n- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                BadRequest(ex.Message);
+            }
+            return Ok();
         }
         //public async Task<IHttpActionResult> GetTournaments()
         //{
@@ -323,7 +355,7 @@ namespace API.Controllers
         //        {
         //            Dates = tournament.Dates.ToList(),
         //            Groups = tournament.Groups.ToList(),
-        //            Logo = tournament.Logo,
+        //            Logoxx = tournament.Logoxx,
         //            Name = tournament.Name,
         //            TournamentId = tournament.TournamentId,
         //        });

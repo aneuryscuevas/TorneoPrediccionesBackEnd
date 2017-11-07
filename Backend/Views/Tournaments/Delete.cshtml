@@ -15,12 +15,12 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Logo)
+            @Html.DisplayNameFor(model => model.LogoTo)
         </dt>
         <dd>
-            @if (!string.IsNullOrEmpty(Model.Logo))
+            @if (!string.IsNullOrEmpty(Model.LogoTo))
             {
-                <img src="@Url.Content(Model.Logo)" alt="Image" style="width:150px;height:150px;max-width: 100%; height: auto;" />
+                <img src="@Url.Content(Model.LogoTo)" alt="Image" style="width:150px;height:150px;max-width: 100%; height: auto;" />
             }
         </dd>
     </dl>

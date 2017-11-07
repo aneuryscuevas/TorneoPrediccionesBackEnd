@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Logo)
+            @Html.DisplayNameFor(model => model.LogoL)
         </th>
         <th>
             # Teams
@@ -29,9 +29,9 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @if (!string.IsNullOrEmpty(item.Logo))
+                @if (!string.IsNullOrEmpty(item.LogoL))
                 {
-                    <img src="@Url.Content(item.Logo)" alt="Image" style="width:100px;height:100px;max-width: 100%; height: auto;" />
+                    <img src="@Url.Content(item.LogoL)" alt="Image" style="width:100px;height:100px;max-width: 100%; height: auto;" />
                 }
             </td>
             <td>
@@ -69,7 +69,7 @@
            
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Logo)
+            @Html.DisplayNameFor(model => model.Logoxx)
         </th>
         <th>
           # Equipos
@@ -83,9 +83,9 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @if (!string.IsNullOrEmpty(item.Logo))
+            @if (!string.IsNullOrEmpty(item.Logoxx))
             {
-                <img src="@Url.Content(item.Logo)" class="LogoMedio" />
+                <img src="@Url.Content(item.Logoxx)" class="LogoMedio" />
             }
 
         </td>

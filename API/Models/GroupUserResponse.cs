@@ -7,7 +7,7 @@ namespace API.Models
         public int GroupUserId { get; set; }
  
         public int GroupId { get; set; }
-        public string Logo { get; set; }
+       // public string LogoG { get; set; }
         public int UserId { get; set; }
         
         public bool IsAccepted { get; set; }

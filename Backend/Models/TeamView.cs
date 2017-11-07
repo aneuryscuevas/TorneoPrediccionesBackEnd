@@ -7,6 +7,6 @@ namespace Backend.Models
     public class TeamView: Team
     {
         [Display(Name = "Logo")]
-        public HttpPostedFileBase LogoFile { get; set; }
+        public HttpPostedFileBase LogoTFile { get; set; }
     }
 }

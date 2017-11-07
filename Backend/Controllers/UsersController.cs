@@ -184,9 +184,9 @@ namespace Backend.Controllers
                 var pic = view.LogoG;
                 var folder = "~/Content/Groups";
 
-                if (view.LogoFile != null)
+                if (view.LogoGFile != null)
                 {
-                    pic = FilesHelper.UploadPhoto(view.LogoFile, folder,"");
+                    pic = FilesHelper.UploadPhoto(view.LogoGFile, folder,"");
                     pic = string.Format("{0}/{1}", folder, pic);
                 }
 
@@ -228,9 +228,9 @@ namespace Backend.Controllers
                 var pic = string.Empty;
                 var folder = "~/Content/Groups";
 
-                if (view.LogoFile != null)
+                if (view.LogoGFile != null)
                 {
-                    pic = FilesHelper.UploadPhoto(view.LogoFile, folder,"");
+                    pic = FilesHelper.UploadPhoto(view.LogoGFile, folder,"");
                     pic = string.Format("{0}/{1}", folder, pic);
                 }
 

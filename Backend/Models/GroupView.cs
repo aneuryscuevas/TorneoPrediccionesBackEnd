@@ -9,6 +9,6 @@ namespace Backend.Models
     public class GroupView : Group
     {
         [Display(Name = "Logo")]
-        public HttpPostedFileBase LogoFile { get; set; }
+        public HttpPostedFileBase LogoGFile { get; set; }
     }
 }

@@ -412,3 +412,4 @@ W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Release\A
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Release\API.csproj.GenerateResource.Cache
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Release\API.dll
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Release\API.pdb
+W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Release\API.Migrations.Addingnewcolumnnames.resources

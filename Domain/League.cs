@@ -17,7 +17,7 @@ namespace Domain
         public string Name { get; set; }
 
         [DataType(DataType.ImageUrl)]
-        public string Logo { get; set; }
+        public string LogoL { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<Team> Teams { get; set; }

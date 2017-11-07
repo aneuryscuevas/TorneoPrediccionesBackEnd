@@ -31,6 +31,5 @@ W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\bin\Debug\
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\bin\Debug\EntityFramework.xml
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\bin\Debug\EntityFramework.SqlServer.xml
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\bin\Debug\Newtonsoft.Json.xml
-W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\obj\Debug\Domain.dll
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\obj\Debug\Domain.pdb

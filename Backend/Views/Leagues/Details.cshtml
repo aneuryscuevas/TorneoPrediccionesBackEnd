@@ -20,13 +20,13 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Logo)
+            @Html.DisplayNameFor(model => model.LogoL)
         </dt>
 
         <dd>
-            @if (!string.IsNullOrEmpty(Model.Logo))
+            @if (!string.IsNullOrEmpty(Model.LogoL))
             {
-                <img src="@Url.Content(Model.Logo)" alt="Image" style="width:150px;height:150px;max-width: 100%; height: auto;" />
+                <img src="@Url.Content(Model.LogoL)" alt="Image" style="width:150px;height:150px;max-width: 100%; height: auto;" />
             }
         </dd>
 
@@ -50,7 +50,7 @@ else
                 @Html.DisplayNameFor(model => model.Teams.FirstOrDefault().Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Teams.FirstOrDefault().Logo)
+                @Html.DisplayNameFor(model => model.Teams.FirstOrDefault().LogoT)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Teams.FirstOrDefault().Initials)
@@ -65,9 +65,9 @@ else
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @if (!string.IsNullOrEmpty(item.Logo))
+                    @if (!string.IsNullOrEmpty(item.LogoT))
                     {
-                        <img src="@Url.Content(item.Logo)" alt="Image" style="width:80px;height:80px;max-width: 100%; height: auto;" />
+                        <img src="@Url.Content(item.LogoT)" alt="Image" style="width:80px;height:80px;max-width: 100%; height: auto;" />
                     }
                 </td>
                 <td>
@@ -103,14 +103,14 @@ else
         </dd>
         <br />
         <dt>
-            <div class="control-label col-md-2"> Logo</div>
+            <div class="control-label col-md-2"> Logoxx</div>
         </dt>
 
         <dd>
              
-            @if (!string.IsNullOrEmpty(Model.Logo))
+            @if (!string.IsNullOrEmpty(Model.Logoxx))
             {
-                <img src="@Url.Content(Model.Logo)" alt="Image" class="LogoMedio" />
+                <img src="@Url.Content(Model.Logoxx)" alt="Image" class="LogoMedio" />
             }
              
         </dd>
@@ -138,7 +138,7 @@ else
           Equipo/Club
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Teams.FirstOrDefault().Logo)
+            @Html.DisplayNameFor(model => model.Teams.FirstOrDefault().Logoxx)
         </th>
         <th>
            Iniciales
@@ -153,9 +153,9 @@ else
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @if (!string.IsNullOrEmpty(item.Logo))
+            @if (!string.IsNullOrEmpty(item.Logoxx))
             {
-                <img src="@Url.Content(item.Logo)"  class="LogoMedioBajo" />
+                <img src="@Url.Content(item.Logoxx)"  class="LogoMedioBajo" />
             }
         </td>
         <td>

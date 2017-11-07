@@ -26,7 +26,7 @@ namespace API.Controllers
                 list.Add(new LeagueResponse
                 {
                     LeagueId = league.LeagueId,
-                    Logo = league.Logo,
+                    LogoL = league.LogoL,
                     Name = league.Name,
                     Teams = league.Teams.ToList(),
                 });

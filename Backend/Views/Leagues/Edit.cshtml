@@ -13,7 +13,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.LeagueId)
-        @Html.HiddenFor(model => model.Logo)
+        @Html.HiddenFor(model => model.LogoL)
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.LogoFile, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.LogoLFile, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="file-input-new">
                     <div class="input-group" style="width:280px">
@@ -34,7 +34,7 @@
                             <div tabindex="500" class="btn btn-primary btn-file">
                                 <i class="glyphicon glyphicon-folder-open"></i>
                                 File Search...
-                                @Html.TextBoxFor(modelo => modelo.LogoFile, new { type = "file", id = "files" })
+                                @Html.TextBoxFor(modelo => modelo.LogoLFile, new { type = "file", id = "files" })
                             </div>
                         </div>
                     </div>
@@ -76,9 +76,9 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-10">
-                @if (!string.IsNullOrEmpty(Model.Logo))
+                @if (!string.IsNullOrEmpty(Model.Logoxx))
                 {
-                    <img src="@Url.Content(Model.Logo)" alt="Image" class="LogoNormal" />
+                    <img src="@Url.Content(Model.Logoxx)" alt="Image" class="LogoNormal" />
                 }
             </div>
         </div>
@@ -86,7 +86,7 @@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.LeagueId)
-        @Html.HiddenFor(model => model.Logo)
+        @Html.HiddenFor(model => model.Logoxx)
 
         <div class="form-group">
             <div class="control-label col-md-2"> Liga</div>

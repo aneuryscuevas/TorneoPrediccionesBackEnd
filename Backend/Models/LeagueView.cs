@@ -9,6 +9,6 @@ namespace Backend.Models
     public class LeagueView :League
     {
         [Display(Name="Logo")]
-        public HttpPostedFileBase LogoFile { get; set; }
+        public HttpPostedFileBase LogoLFile { get; set; }
     }
 }

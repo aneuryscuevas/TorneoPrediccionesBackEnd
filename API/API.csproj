@@ -206,6 +206,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Classes\MyPersonalNotes.cs" />
+    <Compile Include="Migrations\201711072014466_Adding new column names.cs" />
+    <Compile Include="Migrations\201711072014466_Adding new column names.Designer.cs">
+      <DependentUpon>201711072014466_Adding new column names.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ChangePasswordRequest.cs" />
     <Compile Include="Classes\FilesHelper.cs" />
     <Compile Include="Models\FacebookResponse.cs" />
@@ -331,6 +335,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708101555503_Initial.resx">
       <DependentUpon>201708101555503_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711072014466_Adding new column names.resx">
+      <DependentUpon>201711072014466_Adding new column names.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
