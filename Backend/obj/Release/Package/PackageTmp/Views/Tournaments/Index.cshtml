@@ -1,70 +1,66 @@
 ﻿@model IEnumerable<Domain.Tournament>
 
 @{
-    ViewBag.Title = "Torneos";
+    ViewBag.Title = "Index";
 }
 
-<h2>Torneos/Competencias</h2>
+<h2>Tournaments</h2>
 
 <p>
-    <a class="btn btn-primary" href="/Tournaments/Create"> <span class="glyphicon glyphicon-plus"></span> Nuev&#64;  </a>
-    
+    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary" })
 </p>
 <table class="table">
     <tr>
         <th>
-           Torneo
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Logo)
         </th>
         <th>
-           Activo?
+            @Html.DisplayNameFor(model => model.IsActive)
         </th>
         <th>
-       Orden
+            @Html.DisplayNameFor(model => model.Order)
         </th>
         <th>
-            # Grupos
+            # Groups
         </th>
         <th>
-            # Fechas
+            # Dates
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @if (!string.IsNullOrEmpty(item.Logo))
-            {
-                <img src="@Url.Content(item.Logo)"  class="LogoMedio" />
-            }
-        </td>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Order)
-        </td>
-         
-        <td>
-            @Html.DisplayFor(modelItem => item.Groups.Count)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dates.Count)
-        </td>
-        <td>
-            <a class="btn btn-warning" href="/Tournaments/Edit/@item.TournamentId"> <span class="glyphicon glyphicon-edit"></span> Editar  </a>
-            <a class="btn btn-info" href="/Tournaments/Details/@item.TournamentId"> <span class="glyphicon glyphicon-exclamation-sign"></span> Detalle </a>
-            <a class="btn btn-danger" href="/Tournaments/Delete/@item.TournamentId"> <span class="glyphicon glyphicon-trash"></span> Eliminar  </a>
-  
-        </td>
-    </tr>
-}
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @if (!string.IsNullOrEmpty(item.Logo))
+                {
+                    <img src="@Url.Content(item.Logo)" alt="Image" style="width:100px;height:100px;max-width: 100%; height: auto;" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Groups.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dates.Count)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.TournamentId }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Details", "Details", new { id=item.TournamentId }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Delete", "Delete", new { id=item.TournamentId }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
 
 </table>

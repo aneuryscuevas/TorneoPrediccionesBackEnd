@@ -1,77 +1,65 @@
-﻿ 
-@model Domain.TournamentGroup
-
+﻿@model Domain.TournamentGroup
 @{
-    ViewBag.Title = "Grupo";
+    ViewBag.Title = "Index";
 }
-
-<h2>Torneo: @Model.Tournament.Name</h2>
-<h3>Grupo: @Model.Name</h3>
-
+<h2>Tournament: @Model.Tournament.Name</h2>
+<h3>Group: @Model.Name</h3>
 <p>
-    <a class="btn btn-success" href="/Tournaments/Details/@Model.TournamentId"> <span class="glyphicon glyphicon-circle-arrow-left"></span> Retornar a los grupos </a>
-    <a class="btn btn-primary" href="/Tournaments/CreateTeam/@Model.TournamentGroupId"> <span class="glyphicon glyphicon-plus"></span> Integrar Equipo </a>
+    @Html.ActionLink("Create New", "CreateTeam", new { id = Model.TournamentGroupId }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back to Group", "Details", new { id = Model.TournamentId }, new { @class = "btn btn-success" })
 </p>
-
 @if (Model.TournamentTeams.Count == 0)
 {
-    <h3>No hay equipos añadidos aun</h3>
-
+    <h4>No teams added yet</h4>
 }
 else
 {
-  
     <table class="table">
         <tr>
             <th>
-               Logo
+                @Html.DisplayNameFor(model => model.TournamentTeams.FirstOrDefault().Team.Logo)
             </th>
             <th>
-               Equipo
-            </th>
-
-
-            <th>
-               Partidos Jugados
+                @Html.DisplayNameFor(model => model.TournamentTeams.FirstOrDefault().Team.Name)
             </th>
             <th>
-               Ganados
+                @Html.DisplayNameFor(model => model.TournamentTeams.FirstOrDefault().MatchesPlayed)
             </th>
             <th>
-               Perdidos
+                @Html.DisplayNameFor(model => model.TournamentTeams.FirstOrDefault().MatchesWon)
             </th>
             <th>
-               Empatados
+                @Html.DisplayNameFor(model => model.TournamentTeams.FirstOrDefault().MatchesLost)
             </th>
             <th>
-               En Favor
+                @Html.DisplayNameFor(model => model.TournamentTeams.FirstOrDefault().MatchesTied)
             </th>
             <th>
-               En Contra
+                @Html.DisplayNameFor(model => model.TournamentTeams.FirstOrDefault().FavorGoals)
             </th>
             <th>
-              Puntos
+                @Html.DisplayNameFor(model => model.TournamentTeams.FirstOrDefault().AgainstGoals)
             </th>
             <th>
-               Posicion
+                @Html.DisplayNameFor(model => model.TournamentTeams.FirstOrDefault().Points)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TournamentTeams.FirstOrDefault().Position)
             </th>
             <th></th>
         </tr>
-
-        @foreach (var item in Model.TournamentTeams.OrderBy(t => t.Position)) {
+        @foreach (var item in Model.TournamentTeams.OrderBy(t => t.Position))
+        {
             <tr>
                 <td>
-                    
                     @if (!string.IsNullOrEmpty(item.Team.Logo))
                     {
-                        <img src="@Url.Content(item.Team.Logo)" class="LogoChico" />
+                        <img src="@Url.Content(item.Team.Logo)" alt="Image" style="width:80px;height:80px;max-width: 100%; height: auto;" />
                     }
-                         
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Team.Name)
                 </td>
-               
                 <td>
                     @Html.DisplayFor(modelItem => item.MatchesPlayed)
                 </td>
@@ -97,13 +85,10 @@ else
                     @Html.DisplayFor(modelItem => item.Position)
                 </td>
                 <td>
-                    <a class="btn btn-warning" href="/Tournaments/EditTeam/@item.TournamentTeamId"> <span class="glyphicon glyphicon-edit"></span> Editar  </a>
-                    @*<a class="btn btn-info" href="/Tournaments/DetailsGroup/@item.TournamentGroupId"> <span class="glyphicon glyphicon-exclamation-sign"></span> Detalle </a>*@
-                    <a class="btn btn-danger" href="/Tournaments/DeleteTeam/@item.TournamentTeamId" onclick = "return confirm('Esta seguro que desea eliminar este registro?')"> <span class="glyphicon glyphicon-trash"></span> Eliminar  </a>
-
+                    @Html.ActionLink("Edit", "EditTeam", new { id = item.TournamentTeamId }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Delete", "DeleteTeam", new { id = item.TournamentTeamId }, new { @class = "btn btn-danger", onclick = "return confirm('Areyou sure to delete this record?');" })
                 </td>
             </tr>
         }
-
     </table>
 }

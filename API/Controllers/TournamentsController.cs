@@ -16,13 +16,13 @@ namespace API.Controllers
     [Authorize(Roles = "User")]
     public class TournamentsController : ApiController
     {
-        private DataContextLocal db = new DataContextLocal();
+        private readonly DataContextLocal _db = new DataContextLocal();
 
         [Route("GetResults/{tournamentGroupId}/{userId}")]
         public async Task<IHttpActionResult> GetResults(int tournamentGroupId, int userId)
         {
-            var qry = await (from p in db.Predictions
-                             join m in db.Matches on p.MatchId equals m.MatchId
+            var qry = await (from p in _db.Predictions
+                             join m in _db.Matches on p.MatchId equals m.MatchId
                              where m.TournamentGroupId==tournamentGroupId && p.UserId==userId
                              select new   {p}).ToListAsync();
             var results = new List<Result>();
@@ -58,60 +58,114 @@ namespace API.Controllers
                 LocalGoals = match.LocalGoals,
                 LocalId = match.LocalId,
                 MatchId = match.MatchId,
+                StatusId = match.StatusId,
                 TournamentGroupId = match.TournamentGroupId,
                 Visitor = match.Visitor,
                 VisitorGoals = match.VisitorGoals,
-                VisitorId = match.VisitorId
+                VisitorId = match.VisitorId,
             };
         }
 
         [Route("GetMatchesToPredict/{tournamentId}/{userId}")]
         public async Task<IHttpActionResult> GetMatchesToPredict(int tournamentId, int userId)
         {
-            var qry = await (from t in db.Tournaments
-                join d in db.Dates on t.TournamentId equals d.TournamentId
-                join m in db.Matches on d.DateId equals m.DateId
-                where t.TournamentId == tournamentId && m.StatusId != 3 && m.DateTime > DateTime.Now
+            var qry = await (from t in _db.Tournaments
+                join d in _db.Dates on t.TournamentId equals d.TournamentId
+                join m in _db.Matches on d.DateId equals m.DateId
+                where t.TournamentId == tournamentId && m.StatusId != 3
                 select new { m }).ToListAsync();
-
-            var predictions = await db.Predictions.Where(p => p.UserId == userId).ToListAsync();
+            var predictions = await _db.Predictions.Where(p => p.UserId == userId).ToListAsync();
             var matches = new List<MatchResponse>();
 
+            // ***
+            var dateTimeLocal = DateTime.Now.ToLocalTime();
+            var dateTimeUtc = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+            var timeDiff = dateTimeLocal.Subtract(dateTimeUtc).Hours;
             foreach (var item in qry)
             {
-                var matchResponse = new MatchResponse
+                if (item.m.DateTime > DateTime.Now.AddHours(-5))
                 {
-                    DateId = item.m.DateId,
-                    DateTime = item.m.DateTime,
-                    Local = item.m.Local,
-                    LocalGoals = item.m.LocalGoals,
-                    LocalId = item.m.LocalId,
-                    MatchId = item.m.MatchId,
-                    StatusId = item.m.StatusId,
-                    TournamentGroupId = item.m.TournamentGroupId,
-                    Visitor = item.m.Visitor,
-                    VisitorGoals = item.m.VisitorGoals,
-                    VisitorId = item.m.VisitorId,
-                };
+                    var matchResponse = new MatchResponse
+                    {
+                        DateId = item.m.DateId,
+                        DateTime = item.m.DateTime,
+                        Local = item.m.Local,
+                        LocalGoals = item.m.LocalGoals,
+                        LocalId = item.m.LocalId,
+                        MatchId = item.m.MatchId,
+                        StatusId = item.m.StatusId,
+                        TournamentGroupId = item.m.TournamentGroupId,
+                        Visitor = item.m.Visitor,
+                        VisitorGoals = item.m.VisitorGoals,
+                        VisitorId = item.m.VisitorId,
+                    };
 
-                var prediction = predictions.Where(p => p.MatchId == item.m.MatchId).FirstOrDefault();
+                    var prediction = predictions.Where(p => p.MatchId == item.m.MatchId).FirstOrDefault();
 
-                if (prediction != null)
-                {
-                    matchResponse.LocalGoals = prediction.LocalGoals;
-                    matchResponse.VisitorGoals = prediction.VisitorGoals;
-                    matchResponse.WasPredicted = true;
+                    if (prediction != null)
+                    {
+                        matchResponse.LocalGoals = prediction.LocalGoals;
+                        matchResponse.VisitorGoals = prediction.VisitorGoals;
+                        matchResponse.WasPredicted = true;
+                    }
+                    else
+                    {
+                        matchResponse.WasPredicted = false;
+                    }
+
+                    matches.Add(matchResponse);
                 }
-                else
-                {
-                    matchResponse.WasPredicted = false;
-                }
-
-                matches.Add(matchResponse);
             }
 
             return Ok(matches.OrderBy(m => m.DateTime));
         }
+        //[Route("GetMatchesToPredict/{tournamentId}/{userId}")]
+        //public async Task<IHttpActionResult> GetMatchesToPredict(int tournamentId, int userId)
+        //{
+        //    var qry = await (from t in _db.Tournaments
+        //        join d in _db.Dates on t.TournamentId equals d.TournamentId
+        //        join m in _db.Matches on d.DateId equals m.DateId
+        //        where t.TournamentId == tournamentId && m.StatusId != 3 && m.DateTime > DateTime.Now
+        //        select new { m }).ToListAsync();
+
+        //    var predictions = await _db.Predictions.Where(p => p.UserId == userId).ToListAsync();
+        //    var matches = new List<MatchResponse>();
+
+        //    foreach (var item in qry)
+        //    {
+        //        var matchResponse = new MatchResponse
+        //        {
+        //            DateId = item.m.DateId,
+        //            DateTime = item.m.DateTime,
+        //            Local = item.m.Local,
+        //            LocalGoals = item.m.LocalGoals,
+        //            LocalId = item.m.LocalId,
+        //            MatchId = item.m.MatchId,
+        //            StatusId = item.m.StatusId,
+        //            TournamentGroupId = item.m.TournamentGroupId,
+        //            Visitor = item.m.Visitor,
+        //            VisitorGoals = item.m.VisitorGoals,
+        //            VisitorId = item.m.VisitorId,
+        //        };
+
+        //        var prediction = predictions.Where(p => p.MatchId == item.m.MatchId).FirstOrDefault();
+
+        //        if (prediction != null)
+        //        {
+        //            matchResponse.LocalGoals = prediction.LocalGoals;
+        //            matchResponse.VisitorGoals = prediction.VisitorGoals;
+        //            matchResponse.WasPredicted = true;
+        //        }
+        //        else
+        //        {
+        //            matchResponse.WasPredicted = false;
+        //        }
+
+        //        matches.Add(matchResponse);
+        //    }
+
+        //    return Ok(matches.OrderBy(m => m.DateTime));
+        //}
 
 
 
@@ -236,14 +290,18 @@ namespace API.Controllers
 
 
         //}
-
         public async Task<IHttpActionResult> GetTournaments()
         {
-            var tournaments = await db.Tournaments.Where(t => t.IsActive).OrderBy(t => t.Order).ToListAsync();
-            var tournamentsResponse = new List<TournamentResponse>();
+            var tournaments = await _db.Tournaments
+                .Where(t => t.IsActive)
+                .OrderBy(t => t.Order)
+                .ToListAsync();
+
+            var list = new List<TournamentResponse>();
+
             foreach (var tournament in tournaments)
             {
-                tournamentsResponse.Add(new TournamentResponse
+                list.Add(new TournamentResponse
                 {
                     Dates = tournament.Dates.ToList(),
                     Groups = tournament.Groups.ToList(),
@@ -253,15 +311,33 @@ namespace API.Controllers
                 });
             }
 
-            return Ok(tournamentsResponse);
+            return Ok(list);
         }
+        //public async Task<IHttpActionResult> GetTournaments()
+        //{
+        //    var tournaments = await _db.Tournaments.Where(t => t.IsActive).OrderBy(t => t.Order).ToListAsync();
+        //    var tournamentsResponse = new List<TournamentResponse>();
+        //    foreach (var tournament in tournaments)
+        //    {
+        //        tournamentsResponse.Add(new TournamentResponse
+        //        {
+        //            Dates = tournament.Dates.ToList(),
+        //            Groups = tournament.Groups.ToList(),
+        //            Logo = tournament.Logo,
+        //            Name = tournament.Name,
+        //            TournamentId = tournament.TournamentId,
+        //        });
+        //    }
+
+        //    return Ok(tournamentsResponse);
+        //}
 
 
         // GET: api/Tournaments/5
         [ResponseType(typeof(Tournament))]
         public async Task<IHttpActionResult> GetTournament(int id)
         {
-            var tournament = await db.Tournaments.FindAsync(id);
+            var tournament = await _db.Tournaments.FindAsync(id);
             if (tournament == null)
             {
                 return NotFound();
@@ -284,11 +360,11 @@ namespace API.Controllers
                 return BadRequest();
             }
 
-            db.Entry(tournament).State = EntityState.Modified;
+            _db.Entry(tournament).State = EntityState.Modified;
 
             try
             {
-                await db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -314,8 +390,8 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Tournaments.Add(tournament);
-            await db.SaveChangesAsync();
+            _db.Tournaments.Add(tournament);
+            await _db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = tournament.TournamentId }, tournament);
         }
@@ -324,14 +400,14 @@ namespace API.Controllers
         [ResponseType(typeof(Tournament))]
         public async Task<IHttpActionResult> DeleteTournament(int id)
         {
-            var tournament = await db.Tournaments.FindAsync(id);
+            var tournament = await _db.Tournaments.FindAsync(id);
             if (tournament == null)
             {
                 return NotFound();
             }
 
-            db.Tournaments.Remove(tournament);
-            await db.SaveChangesAsync();
+            _db.Tournaments.Remove(tournament);
+            await _db.SaveChangesAsync();
 
             return Ok(tournament);
         }
@@ -340,14 +416,14 @@ namespace API.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool TournamentExists(int id)
         {
-            return db.Tournaments.Count(e => e.TournamentId == id) > 0;
+            return _db.Tournaments.Count(e => e.TournamentId == id) > 0;
         }
     }
 }

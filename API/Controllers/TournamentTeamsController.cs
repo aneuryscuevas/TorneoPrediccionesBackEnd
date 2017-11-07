@@ -13,43 +13,70 @@ namespace API.Controllers
 {
     public class TournamentTeamsController : ApiController
     {
-        private DataContext db = new DataContext();
+        private readonly DataContext _db = new DataContext();
 
         // GET: api/TournamentTeams
         public IQueryable<TournamentTeam> GetTournamentTeams()
         {
-            return db.TournamentTeams;
+            return _db.TournamentTeams;
         }
 
-        // GET: api/TournamentTeams/5
         [ResponseType(typeof(TournamentTeam))]
         public async Task<IHttpActionResult> GetTournamentTeam(int id)
         {
-            var tournamentTeams = await db.TournamentTeams.Where(tt => tt.TournamentGroupId==id).ToListAsync();
-            //if (tournamentTeam == null)
-            //{
-            //    return NotFound();
-            //}
-            var list = new List<TournamentTeamRespose>();
-            foreach (var tournamentTeam in tournamentTeams.OrderBy(tt=>tt.Position))
+            var tournamentTeams = await _db.TournamentTeams.Where(tt => tt.TournamentGroupId == id).ToListAsync();
+            var list = new List<TournamentTeamResponse>();
+            foreach (var tournamentTeam in tournamentTeams.OrderBy(tt => tt.Position))
             {
-                list.Add(new TournamentTeamRespose
-                { AgainstGoals = tournamentTeam.AgainstGoals,
+                list.Add(new TournamentTeamResponse
+                {
+                    AgainstGoals = tournamentTeam.AgainstGoals,
                     FavorGoals = tournamentTeam.FavorGoals,
                     MatchesLost = tournamentTeam.MatchesLost,
                     MatchesPlayed = tournamentTeam.MatchesPlayed,
                     MatchesTied = tournamentTeam.MatchesTied,
-                    MatchesWon= tournamentTeam.MatchesWon,
+                    MatchesWon = tournamentTeam.MatchesWon,
                     Points = tournamentTeam.Points,
                     Position = tournamentTeam.Position,
                     Team = tournamentTeam.Team,
                     TeamId = tournamentTeam.TeamId,
                     TournamentGroupId = tournamentTeam.TournamentGroupId,
-                 TournamentTeamId = tournamentTeam.TournamentTeamId,
+                    TournamentTeamId = tournamentTeam.TournamentTeamId,
                 });
             }
+
             return Ok(list);
         }
+        // GET: api/TournamentTeams/5
+        //[ResponseType(typeof(TournamentTeam))]
+        //public async Task<IHttpActionResult> GetTournamentTeam(int id)
+        //{
+        //    var tournamentTeams = await _db.TournamentTeams.Where(tt => tt.TournamentGroupId == id).ToListAsync();
+        //    //if (tournamentTeam == null)
+        //    //{
+        //    //    return NotFound();
+        //    //}
+        //    var list = new List<TournamentTeamRespose>();
+        //    foreach (var tournamentTeam in tournamentTeams.OrderBy(tt => tt.Position))
+        //    {
+        //        list.Add(new TournamentTeamRespose
+        //        {
+        //            AgainstGoals = tournamentTeam.AgainstGoals,
+        //            FavorGoals = tournamentTeam.FavorGoals,
+        //            MatchesLost = tournamentTeam.MatchesLost,
+        //            MatchesPlayed = tournamentTeam.MatchesPlayed,
+        //            MatchesTied = tournamentTeam.MatchesTied,
+        //            MatchesWon = tournamentTeam.MatchesWon,
+        //            Points = tournamentTeam.Points,
+        //            Position = tournamentTeam.Position,
+        //            Team = tournamentTeam.Team,
+        //            TeamId = tournamentTeam.TeamId,
+        //            TournamentGroupId = tournamentTeam.TournamentGroupId,
+        //            TournamentTeamId = tournamentTeam.TournamentTeamId,
+        //        });
+        //    }
+        //    return Ok(list);
+        //}
 
         // PUT: api/TournamentTeams/5
         [ResponseType(typeof(void))]
@@ -65,11 +92,11 @@ namespace API.Controllers
                 return BadRequest();
             }
 
-            db.Entry(tournamentTeam).State = EntityState.Modified;
+            _db.Entry(tournamentTeam).State = EntityState.Modified;
 
             try
             {
-                await db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -95,8 +122,8 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.TournamentTeams.Add(tournamentTeam);
-            await db.SaveChangesAsync();
+            _db.TournamentTeams.Add(tournamentTeam);
+            await _db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = tournamentTeam.TournamentTeamId }, tournamentTeam);
         }
@@ -105,14 +132,14 @@ namespace API.Controllers
         [ResponseType(typeof(TournamentTeam))]
         public async Task<IHttpActionResult> DeleteTournamentTeam(int id)
         {
-            TournamentTeam tournamentTeam = await db.TournamentTeams.FindAsync(id);
+            TournamentTeam tournamentTeam = await _db.TournamentTeams.FindAsync(id);
             if (tournamentTeam == null)
             {
                 return NotFound();
             }
 
-            db.TournamentTeams.Remove(tournamentTeam);
-            await db.SaveChangesAsync();
+            _db.TournamentTeams.Remove(tournamentTeam);
+            await _db.SaveChangesAsync();
 
             return Ok(tournamentTeam);
         }
@@ -121,14 +148,14 @@ namespace API.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool TournamentTeamExists(int id)
         {
-            return db.TournamentTeams.Count(e => e.TournamentTeamId == id) > 0;
+            return _db.TournamentTeams.Count(e => e.TournamentTeamId == id) > 0;
         }
     }
 }

@@ -1,63 +1,56 @@
 ﻿@model Domain.Date
-
 @{
-    ViewBag.Title = "Fecha";
+    ViewBag.Title = "Index";
 }
-
-<h2>Torneo: @Model.Tournament.Name</h2>
-<h3>Fecha: @Model.Name</h3>
-
+<h2>Tournament: @Model.Tournament.Name</h2>
+<h3>Date: @Model.Name</h3>
 <p>
-    <a class="btn btn-success" href="/Tournaments/Details/@Model.TournamentId"> <span class="glyphicon glyphicon-circle-arrow-left"></span> Retornar a los grupos </a>
-    <a class="btn btn-primary" href="/Tournaments/CreateMatch/@Model.DateId"> <span class="glyphicon glyphicon-plus"></span> 
-    Crear partido</a>
-
-    
+    @Html.ActionLink("Create New", "CreateMatch", new { id = Model.DateId }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back to Date", "Details", new { id = Model.TournamentId }, new { @class = "btn btn-success" })
 </p>
-
 @if (Model.Matches.Count == 0)
 {
-    <h3>No hay partidos añadidos aun</h3>
-
+    <h4>No matches added yet</h4>
 }
 else
 {
     <table class="table">
         <tr>
-
-
-            <th>
-              Estado
+            <th width="70px">
+                @Html.DisplayNameFor(model => model.Matches.FirstOrDefault().Status.Name)
             </th>
-            <th>
-                Grupo
+            <th width="80px">
+                @Html.DisplayNameFor(model => model.Matches.FirstOrDefault().TournamentGroup.Name)
             </th>
-            <th>
-                Fecha y Hora
-            </th>
-            <th>
+            <th width="70px">
                 Local
             </th>
-            <th>
-                Puntos
+            <th width="70px">
+                Local Logo
+            </th>
+            <th width="70px">
+                Visitor
+            </th>
+            <th width="70px">
+                Visitor Logo
+            </th>
+            <th width="100px">
+                @Html.DisplayNameFor(model => model.Matches.FirstOrDefault().DateTime)
+            </th>
+            <th width="70px">
+                @Html.DisplayNameFor(model => model.Matches.FirstOrDefault().LocalGoals)
+            </th>
+            <th width="70px">
+                @Html.DisplayNameFor(model => model.Matches.FirstOrDefault().VisitorGoals)
             </th>
             <th>
-                Visitante
+                # Predictions
             </th>
-           
-            <th>
-                Puntos
-            </th>
-            
-           
             <th></th>
         </tr>
-
         @foreach (var item in Model.Matches.OrderBy(m => m.DateTime))
         {
             <tr>
-
-
                 <td>
                     @Html.DisplayFor(modelItem => item.Status.Name)
                 </td>
@@ -65,44 +58,42 @@ else
                     @Html.DisplayFor(modelItem => item.TournamentGroup.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateTime)
+                    @Html.DisplayFor(modelItem => item.Local.Name)
                 </td>
                 <td>
                     @if (!string.IsNullOrEmpty(item.Local.Logo))
                     {
-                        <img src="@Url.Content(item.Local.Logo)" class="LogoChico"/>
+                        <img src="@Url.Content(item.Local.Logo)" alt="Image" style="width:80px;height:80px;max-width: 100%; height: auto;" />
                     }
-                    @Html.DisplayFor(modelItem => item.Local.Name)
-
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Visitor.Name)
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Visitor.Logo))
+                    {
+                        <img src="@Url.Content(item.Visitor.Logo)" alt="Image" style="width:80px;height:80px;max-width: 100%; height: auto;" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTime)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.LocalGoals)
                 </td>
                 <td>
-                    @if (!string.IsNullOrEmpty(item.Visitor.Logo))
-                    {
-                        <img src="@Url.Content(item.Visitor.Logo)" class="LogoChico" />
-                    }
-                    @Html.DisplayFor(modelItem => item.Visitor.Name)
-
-                </td>
-                
-                
-                <td>
                     @Html.DisplayFor(modelItem => item.VisitorGoals)
                 </td>
                 <td>
-                    <a class="btn btn-warning" href="/Tournaments/EditMatch/@item.MatchId"> <span class="glyphicon glyphicon-edit"></span> Editar  </a>
-                    @*<a class="btn btn-info" href="/Tournaments/DetailsGroup/@item.TournamentGroupId"> <span class="glyphicon glyphicon-exclamation-sign"></span> Detalle </a>*@
-                    <a class="btn btn-info" href="/Tournaments/CloseMatch/@item.MatchId"> <span class="glyphicon glyphicon-edit"></span> Cerrar  </a>
-               
-                     <a class="btn btn-danger" href="/Tournaments/DeleteMatch/@item.MatchId" onclick = "return confirm('Esta seguro que desea eliminar este registro?')"> <span class="glyphicon glyphicon-trash"></span> Eliminar  </a>
-
-                  
-
+                    @Html.DisplayFor(modelItem => item.Predictions.Count)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditMatch", new { id = item.MatchId }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Predictions", "Predictions", new { id = item.MatchId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Close", "CloseMatch", new { id = item.MatchId }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Delete", "DeleteMatch", new { id = item.MatchId }, new { @class = "btn btn-danger", onclick = "return confirm('Areyou sure to delete this record?');" })
                 </td>
             </tr>
         }
-
     </table>
 }

@@ -13,19 +13,19 @@ namespace API.Controllers
 {
     public class GroupsController : ApiController
     {
-        private DataContext db = new DataContext();
+        private readonly DataContext _db = new DataContext();
 
         // GET: api/Groups
         public IQueryable<Group> GetGroups()
         {
-            return db.Groups;
+            return _db.Groups;
         }
 
         // GET: api/Groups/5
         [ResponseType(typeof(Group))]
         public async Task<IHttpActionResult> GetGroup(int id)
         {
-            var groups = await db.Groups.ToListAsync();
+            var groups = await _db.Groups.ToListAsync();
             var list = new List<GroupResponse>();
             foreach (var group in groups)
             {
@@ -34,12 +34,12 @@ namespace API.Controllers
                 {
                     list.Add(new GroupResponse
                     {
-                        GroupId=group.GroupId,
-                        GroupUsers= ToGroupUserResponse(group.GroupUsers),
+                        GroupId = group.GroupId,
+                        GroupUsers = ToGroupUserResponse(group.GroupUsers),
+                        Logo = group.Logo,
                         Name = group.Name,
                         Owner = group.Owner,
-                        OwnerId= group.OwnerId,
-                       Logo = group.Logo,
+                        OwnerId = group.OwnerId,
                     });
                 }
 
@@ -54,13 +54,13 @@ namespace API.Controllers
             {
                 list.Add(new GroupUserResponse
                 {
-                    GroupId=groupUser.GroupId,
-                    GroupUserId=groupUser.GroupUserId,
+                    GroupId = groupUser.GroupId,
+                    GroupUserId = groupUser.GroupUserId,
                     IsAccepted = groupUser.IsAccepted,
-                    IsBlocked= groupUser.IsBlocked,
-                    Points= groupUser.Points,
-                    User= ToUserResponse(groupUser.User),
-                    UserId= groupUser.UserId,
+                    IsBlocked = groupUser.IsBlocked,
+                    Points = groupUser.Points,
+                    User = ToUserResponse(groupUser.User),
+                    UserId = groupUser.UserId,
                 });
             }
             return list;
@@ -70,7 +70,7 @@ namespace API.Controllers
         {
            return new UserResponse
            {
-               Email= user.Email,
+               Email = user.Email,
                FavoriteTeam = user.FavoriteTeam,
                FavoriteTeamId = user.FavoriteTeamId,
                FirstName = user.FirstName,
@@ -79,8 +79,8 @@ namespace API.Controllers
                Picture = user.Picture,
                Points = user.Points,
                UserId = user.UserId,
+               UserType = user.UserType,
                UserTypeId = user.UserTypeId,
-               UserType = user.UserType
            };
         }
 
@@ -98,11 +98,11 @@ namespace API.Controllers
                 return BadRequest();
             }
 
-            db.Entry(group).State = EntityState.Modified;
+            _db.Entry(group).State = EntityState.Modified;
 
             try
             {
-                await db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -128,8 +128,8 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Groups.Add(group);
-            await db.SaveChangesAsync();
+            _db.Groups.Add(group);
+            await _db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = group.GroupId }, group);
         }
@@ -138,14 +138,14 @@ namespace API.Controllers
         [ResponseType(typeof(Group))]
         public async Task<IHttpActionResult> DeleteGroup(int id)
         {
-            Group group = await db.Groups.FindAsync(id);
+            var group = await _db.Groups.FindAsync(id);
             if (group == null)
             {
                 return NotFound();
             }
 
-            db.Groups.Remove(group);
-            await db.SaveChangesAsync();
+            _db.Groups.Remove(group);
+            await _db.SaveChangesAsync();
 
             return Ok(group);
         }
@@ -154,14 +154,14 @@ namespace API.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool GroupExists(int id)
         {
-            return db.Groups.Count(e => e.GroupId == id) > 0;
+            return _db.Groups.Count(e => e.GroupId == id) > 0;
         }
     }
 }

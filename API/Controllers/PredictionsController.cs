@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -11,19 +12,19 @@ namespace API.Controllers
 {
     public class PredictionsController : ApiController
     {
-        private DataContext db = new DataContext();
+        private readonly DataContext _db = new DataContext();
 
         // GET: api/Predictions
         public IQueryable<Prediction> GetPredictions()
         {
-            return db.Predictions;
+            return _db.Predictions;
         }
 
         // GET: api/Predictions/5
         [ResponseType(typeof(Prediction))]
         public async Task<IHttpActionResult> GetPrediction(int id)
         {
-            Prediction prediction = await db.Predictions.FindAsync(id);
+            var prediction = await _db.Predictions.FindAsync(id);
             if (prediction == null)
             {
                 return NotFound();
@@ -46,11 +47,11 @@ namespace API.Controllers
                 return BadRequest();
             }
 
-            db.Entry(prediction).State = EntityState.Modified;
+            _db.Entry(prediction).State = EntityState.Modified;
 
             try
             {
-                await db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -68,6 +69,35 @@ namespace API.Controllers
         }
 
         // POST: api/Predictions
+        //[ResponseType(typeof(Prediction))]
+        //public async Task<IHttpActionResult> PostPrediction(Prediction prediction)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var oldPrediction = await _db.Predictions.Where(p => p.MatchId  == prediction.MatchId &&  
+        //    p.UserId==prediction.UserId).FirstOrDefaultAsync();
+
+        //    if (oldPrediction == null)
+        //    {
+        //        _db.Predictions.Add(prediction);
+        //    }
+        //    else
+        //    {
+        //        oldPrediction.LocalGoals = prediction.LocalGoals;
+        //        oldPrediction.VisitorGoals = prediction.VisitorGoals;
+        //        _db.Entry(oldPrediction).State= EntityState.Modified;
+        //    }
+
+
+        //   // db.Predictions.Add(prediction);
+        //    await _db.SaveChangesAsync();
+
+        //    return Ok(prediction);// CreatedAtRoute("DefaultApi", new { id = prediction.PredictionId }, prediction);
+        //}
+
         [ResponseType(typeof(Prediction))]
         public async Task<IHttpActionResult> PostPrediction(Prediction prediction)
         {
@@ -76,39 +106,51 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var oldPrediction = await db.Predictions.Where(p => p.MatchId  == prediction.MatchId &&  
-            p.UserId==prediction.UserId).FirstOrDefaultAsync();
+            // **
+            var match = await _db.Matches.FindAsync(prediction.MatchId);
+
+            if (match == null)
+            {
+                return BadRequest("The match doesn't exits.");
+            }
+
+            if (match.DateTime < DateTime.Now.AddHours(-5))
+            {
+                return BadRequest("The match start, you dont do the prediction.");
+            }
+
+            var oldPrediction = await _db.Predictions
+                .Where(p => p.MatchId == prediction.MatchId &&
+                            p.UserId == prediction.UserId)
+                .FirstOrDefaultAsync();
 
             if (oldPrediction == null)
             {
-                db.Predictions.Add(prediction);
+                _db.Predictions.Add(prediction);
             }
             else
             {
                 oldPrediction.LocalGoals = prediction.LocalGoals;
                 oldPrediction.VisitorGoals = prediction.VisitorGoals;
-                db.Entry(oldPrediction).State= EntityState.Modified;
+                _db.Entry(oldPrediction).State = EntityState.Modified;
             }
 
-
-           // db.Predictions.Add(prediction);
-            await db.SaveChangesAsync();
-
-            return Ok(prediction);// CreatedAtRoute("DefaultApi", new { id = prediction.PredictionId }, prediction);
+            await _db.SaveChangesAsync();
+            return Ok(prediction);
         }
 
         // DELETE: api/Predictions/5
         [ResponseType(typeof(Prediction))]
         public async Task<IHttpActionResult> DeletePrediction(int id)
         {
-            Prediction prediction = await db.Predictions.FindAsync(id);
+            var prediction = await _db.Predictions.FindAsync(id);
             if (prediction == null)
             {
                 return NotFound();
             }
 
-            db.Predictions.Remove(prediction);
-            await db.SaveChangesAsync();
+            _db.Predictions.Remove(prediction);
+            await _db.SaveChangesAsync();
 
             return Ok(prediction);
         }
@@ -117,14 +159,14 @@ namespace API.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool PredictionExists(int id)
         {
-            return db.Predictions.Count(e => e.PredictionId == id) > 0;
+            return _db.Predictions.Count(e => e.PredictionId == id) > 0;
         }
     }
 }

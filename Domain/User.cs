@@ -23,8 +23,6 @@ namespace Domain
         [Display(Name = "User type")]
         public int UserTypeId { get; set; }
 
-      
-
         [DataType(DataType.ImageUrl)]
         public string Picture { get; set; }
 
@@ -44,6 +42,9 @@ namespace Domain
         public int? FavoriteTeamId { get; set; }
 
         public int Points { get; set; }
+
+        [Display(Name = "User")]
+        public string FullName { get { return string.Format("{0} {1}", FirstName, LastName); } }
         [JsonIgnore]
         public virtual Team FavoriteTeam { get; set; }
         [JsonIgnore]
@@ -54,6 +55,23 @@ namespace Domain
         public virtual ICollection<GroupUser> GroupUsers { get; set; }
         [JsonIgnore]
         public virtual ICollection<Prediction> Predictions { get; set; }
+        [JsonIgnore]
+        public string PictureFullPath
+        {
+            get {
+                if (string.IsNullOrEmpty(Picture))
+                {
+                    return string.Empty;
+                }
+
+                if (UserTypeId == 1)
+                {
+                    return string.Format("http://torneopredicciones.azurewebsites.net{0}", Picture.Substring(1));
+                }
+
+                return Picture;
+            }
+        }
     }
 
 }

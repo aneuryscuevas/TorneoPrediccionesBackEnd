@@ -12,6 +12,7 @@ using Backend.Helpers;
 using Backend.Models;
 using Domain;
 using PsTools;
+using UsersHelper = Backend.Helpers.UsersHelper;
 
 namespace Backend.Controllers.API
 {

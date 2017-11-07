@@ -1,46 +1,36 @@
 ﻿@model Domain.Tournament
-
 @{
-    ViewBag.Title = "Eliminacion";
+    ViewBag.Title = "Delete";
 }
-
-<h2>Eliminar Torneo/Competencia</h2>
-
-<h3>Esta seguro que desea eliminar este registro?</h3>
+<h2>Delete</h2>
+<h3>Are you sure you want to delete this?</h3>
 <div>
-    
+    <h4>Tournament</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            <div class="control-label col-md-2"> Torneo</div>
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-
         <dt>
-            <div class="control-label col-md-2"> Logo</div>
+            @Html.DisplayNameFor(model => model.Logo)
         </dt>
-
         <dd>
             @if (!string.IsNullOrEmpty(Model.Logo))
             {
-                <img src="@Url.Content(Model.Logo)" alt="Image" class="LogoNormal" />
+                <img src="@Url.Content(Model.Logo)" alt="Image" style="width:150px;height:150px;max-width: 100%; height: auto;" />
             }
         </dd>
-
     </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <a class="btn btn-success" href="/Tournaments/Index"> <span class="glyphicon glyphicon-circle-arrow-left"></span> Retornar a las Ligas    </a>
-            <button type="submit" class="btn btn-danger">
-                <i class="glyphicon glyphicon-trash"></i> Eliminar
-            </button>
-           
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-success" })
         </div>
     }
 </div>

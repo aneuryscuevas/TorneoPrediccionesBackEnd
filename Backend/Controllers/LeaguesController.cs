@@ -1,11 +1,9 @@
 ﻿using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using Backend.Models;
 using Domain;
-using System;
 using PsTools;
 
 namespace Backend.Controllers
@@ -17,7 +15,139 @@ namespace Backend.Controllers
 
 
         #region TeamsController
+        public async Task<ActionResult> DeleteTeam(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
+            var team = await _db.Teams.FindAsync(id);
+
+            if (team == null)
+            {
+                return HttpNotFound();
+            }
+
+            _db.Teams.Remove(team);
+            await _db.SaveChangesAsync();
+            return RedirectToAction(string.Format("Details/{0}", team.LeagueId));
+        }
+
+        public async Task<ActionResult> EditTeam(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var team = await _db.Teams.FindAsync(id);
+
+            if (team == null)
+            {
+                return HttpNotFound();
+            }
+
+            var view = ToView(team);
+            return View(view);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> EditTeam(TeamView view)
+        {
+            if (ModelState.IsValid)
+            {
+                var pic = view.Logo;
+                var folder = "~/Content/Teams";
+
+                if (view.LogoFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.LogoFile, folder,"");
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var team = ToTeam(view);
+                team.Logo = pic;
+                _db.Entry(team).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
+                return RedirectToAction(string.Format("Details/{0}", view.LeagueId));
+            }
+
+            ViewBag.LeagueId = new SelectList(_db.Leagues, "LeagueId", "Name", view.LeagueId);
+            return View(view);
+        }
+
+        public async Task<ActionResult> CreateTeam(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var league = await _db.Leagues.FindAsync(id);
+
+            if (league == null)
+            {
+                return HttpNotFound();
+            }
+
+            var view = new TeamView { LeagueId = league.LeagueId, };
+            return View(view);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> CreateTeam(TeamView view)
+        {
+            if (ModelState.IsValid)
+            {
+                var pic = string.Empty;
+                var folder = "~/Content/Teams";
+
+                if (view.LogoFile != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.LogoFile, folder,"");
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+
+                var team = ToTeam(view);
+                team.Logo = pic;
+                _db.Teams.Add(team);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(string.Format("Details/{0}", view.LeagueId));
+            }
+
+            return View(view);
+        }
+
+        private Team ToTeam(TeamView view)
+        {
+            return new Team
+            {
+                Initials = view.Initials,
+                League = view.League,
+                LeagueId = view.LeagueId,
+                Logo = view.Logo,
+                Name = view.Name,
+                TeamId = view.TeamId,
+            };
+        }
+
+        private TeamView ToView(Team team)
+        {
+            return new TeamView
+            {
+                Initials = team.Initials,
+                League = team.League,
+                LeagueId = team.LeagueId,
+                Logo = team.Logo,
+                Name = team.Name,
+                TeamId = team.TeamId,
+            };
+        }
 
         //public async Task<ActionResult> DetailsTeam(int? id)
         //{
@@ -71,196 +201,197 @@ namespace Backend.Controllers
         //    return View(view);
         //}
 
-        private Team ToTeam(TeamView view)
-        {
-            return new Team
-            {
-                LeagueId = view.LeagueId,
-                Logo = view.Logo,
-                Name = view.Name,
-                Initials = view.Initials,
-                League = view.League,
-                TeamId = view.TeamId
-            };
-        }
-        private TeamView ToViewTeam(Team team)
-        {
-            return new TeamView
-            {
-                LeagueId = team.LeagueId,
-                Logo = team.Logo,
-                Name = team.Name,
-                Initials = team.Initials,
-                League = team.League,
-                TeamId = team.TeamId
-            };
-        }
-        public async Task<ActionResult> CreateTeam(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //private Team ToTeam(TeamView view)
+        //{
+        //    return new Team
+        //    {
+        //        LeagueId = view.LeagueId,
+        //        Logo = view.Logo,
+        //        Name = view.Name,
+        //        Initials = view.Initials,
+        //        League = view.League,
+        //        TeamId = view.TeamId
+        //    };
+        //}
+        //private TeamView ToViewTeam(Team team)
+        //{
+        //    return new TeamView
+        //    {
+        //        LeagueId = team.LeagueId,
+        //        Logo = team.Logo,
+        //        Name = team.Name,
+        //        Initials = team.Initials,
+        //        League = team.League,
+        //        TeamId = team.TeamId
+        //    };
+        //}
+        //public async Task<ActionResult> CreateTeam(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            var league = await _db.Leagues.FindAsync(id);
+        //    var league = await _db.Leagues.FindAsync(id);
 
-            if (league == null)
-            {
-                return HttpNotFound();
-            }
+        //    if (league == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-            var view = new TeamView { LeagueId = league.LeagueId, };
-            return View(view);
-        }
+        //    var view = new TeamView { LeagueId = league.LeagueId, };
+        //    return View(view);
+        //}
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateTeam(TeamView view)
-        {
-            if (ModelState.IsValid)
-            {
-                var table = _db.Teams
-                    .Where(u => u.Name.ToLower() == view.Name.ToLower() && u.LeagueId == view.LeagueId)
-                    .FirstOrDefaultAsync();
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> CreateTeam(TeamView view)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var table = _db.Teams
+        //            .Where(u => u.Name.ToLower() == view.Name.ToLower() && u.LeagueId == view.LeagueId)
+        //            .FirstOrDefaultAsync();
 
-                if (table.Result != null)
-                {
-                    ModelState.AddModelError(string.Empty,
-                        "Este nombre ya esta en uso en esta liga, escoja uno diferente");
+        //        if (table.Result != null)
+        //        {
+        //            ModelState.AddModelError(string.Empty,
+        //                "Este nombre ya esta en uso en esta liga, escoja uno diferente");
 
-                }
-                else
-                {
-                    var table2 = _db.Teams
-                        .Where(u => u.Initials.ToLower() == view.Initials.ToLower() && u.LeagueId == view.LeagueId)
-                        .FirstOrDefaultAsync();
+        //        }
+        //        else
+        //        {
+        //            var table2 = _db.Teams
+        //                .Where(u => u.Initials.ToLower() == view.Initials.ToLower() && u.LeagueId == view.LeagueId)
+        //                .FirstOrDefaultAsync();
 
-                    if (table2.Result != null)
-                    {
-                        ModelState.AddModelError(string.Empty,
-                            "Estas iniciales ya estan en uso en esta liga, escoja uno diferente");
-                    }
-                    else
-                    {
+        //            if (table2.Result != null)
+        //            {
+        //                ModelState.AddModelError(string.Empty,
+        //                    "Estas iniciales ya estan en uso en esta liga, escoja uno diferente");
+        //            }
+        //            else
+        //            {
 
-                        var pic = string.Empty;
-                        var folder = "~/Content/Logos";
+        //                var pic = string.Empty;
+        //                var folder = "~/Content/Logos";
 
-                        if (view.LogoFile != null)
-                        {
-                            pic = FilesHelper.UploadPhoto(view.LogoFile, folder,"");
-                            pic = string.Format("{0}/{1}", folder, pic);
-                        }
+        //                if (view.LogoFile != null)
+        //                {
+        //                    pic = FilesHelper.UploadPhoto(view.LogoFile, folder,"");
+        //                    pic = string.Format("{0}/{1}", folder, pic);
+        //                }
 
-                        var team = ToTeam(view);
-                        team.Logo = pic;
+        //                var team = ToTeam(view);
+        //                team.Logo = pic;
 
-                        _db.Teams.Add(team);
-                        await _db.SaveChangesAsync();
+        //                _db.Teams.Add(team);
+        //                await _db.SaveChangesAsync();
 
-                        return RedirectToAction(string.Format("Details/{0}", team.LeagueId));
-                    }
-                }
-            }
+        //                return RedirectToAction(string.Format("Details/{0}", team.LeagueId));
+        //            }
+        //        }
+        //    }
 
-            return View(view);
-        }
+        //    return View(view);
+        //}
 
-        public async Task<ActionResult> EditTeam(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //public async Task<ActionResult> EditTeam(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            var team = await _db.Teams.FindAsync(id);
+        //    var team = await _db.Teams.FindAsync(id);
 
-            if (team == null)
-            {
-                return HttpNotFound();
-            }
+        //    if (team == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-            var view = ToViewTeam(team);
-            return View(view);
-        }
+        //    var view = ToViewTeam(team);
+        //    return View(view);
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditTeam(TeamView view)
-        {
-            if (ModelState.IsValid)
-            {
-                var table = _db.Teams
-                    .Where(u => u.Name.ToLower() == view.Name.ToLower() && u.LeagueId == view.LeagueId && u.TeamId != view.TeamId)
-                    .FirstOrDefaultAsync();
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> EditTeam(TeamView view)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var table = _db.Teams
+        //            .Where(u => u.Name.ToLower() == view.Name.ToLower() && u.LeagueId == view.LeagueId && u.TeamId != view.TeamId)
+        //            .FirstOrDefaultAsync();
 
-                if (table.Result != null)
-                {
-                    ModelState.AddModelError(string.Empty,
-                        "Este nombre ya esta en uso en esta liga, escoja uno diferente");
-                }
-                else
-                {
-                    var table2 = _db.Teams
-                        .Where(u => u.Initials.ToLower() == view.Initials.ToLower() && u.LeagueId == view.LeagueId && u.TeamId != view.TeamId)
-                        .FirstOrDefaultAsync();
+        //        if (table.Result != null)
+        //        {
+        //            ModelState.AddModelError(string.Empty,
+        //                "Este nombre ya esta en uso en esta liga, escoja uno diferente");
+        //        }
+        //        else
+        //        {
+        //            var table2 = _db.Teams
+        //                .Where(u => u.Initials.ToLower() == view.Initials.ToLower() && u.LeagueId == view.LeagueId && u.TeamId != view.TeamId)
+        //                .FirstOrDefaultAsync();
 
-                    if (table2.Result != null)
-                    {
-                        ModelState.AddModelError(string.Empty,
-                            "Estas iniciales ya estan en uso en esta liga, escoja uno diferente");
-                    }
-                    else
-                    {
-                        if (ModelState.IsValid)
-                        {
-                            var pic = view.Logo;
-                            var folder = "~/Content/Logos";
+        //            if (table2.Result != null)
+        //            {
+        //                ModelState.AddModelError(string.Empty,
+        //                    "Estas iniciales ya estan en uso en esta liga, escoja uno diferente");
+        //            }
+        //            else
+        //            {
+        //                if (ModelState.IsValid)
+        //                {
+        //                    var pic = view.Logo;
+        //                    var folder = "~/Content/Logos";
 
-                            if (view.LogoFile != null)
-                            {
-                                pic = FilesHelper.UploadPhoto(view.LogoFile, folder,"");
-                                pic = string.Format("{0}/{1}", folder, pic);
-                            }
+        //                    if (view.LogoFile != null)
+        //                    {
+        //                        pic = FilesHelper.UploadPhoto(view.LogoFile, folder,"");
+        //                        pic = string.Format("{0}/{1}", folder, pic);
+        //                    }
 
-                            var team = ToTeam(view);
-                            team.Logo = pic;
+        //                    var team = ToTeam(view);
+        //                    team.Logo = pic;
 
-                            _db.Entry(team).State = EntityState.Modified;
-                            await _db.SaveChangesAsync();
-                            return RedirectToAction(string.Format("Details/{0}", team.LeagueId));
-                        }
-                    }
-                }
-            }
+        //                    _db.Entry(team).State = EntityState.Modified;
+        //                    await _db.SaveChangesAsync();
+        //                    return RedirectToAction(string.Format("Details/{0}", team.LeagueId));
+        //                }
+        //            }
+        //        }
+        //    }
 
-            return View(view);
-        }
+        //    return View(view);
+        //}
 
-        public async Task<ActionResult> DeleteTeam(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //public async Task<ActionResult> DeleteTeam(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            var team = await _db.Teams.FindAsync(id);
+        //    var team = await _db.Teams.FindAsync(id);
 
-            if (team == null)
-            {
-                return HttpNotFound();
-            }
+        //    if (team == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-            _db.Teams.Remove(team);
-            await _db.SaveChangesAsync();
-            return RedirectToAction(string.Format("Details/{0}", team.LeagueId));
-        }
+        //    _db.Teams.Remove(team);
+        //    await _db.SaveChangesAsync();
+        //    return RedirectToAction(string.Format("Details/{0}", team.LeagueId));
+        //}
 
 
         #endregion
 
         #region LeagueController
+
 
         public async Task<ActionResult> Index()
         {
@@ -280,7 +411,6 @@ namespace Backend.Controllers
             {
                 return HttpNotFound();
             }
-
             return View(league);
         }
 
@@ -291,79 +421,38 @@ namespace Backend.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create(LeagueView view)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var pic = string.Empty;
+                var folder = "~/Content/Leagues";
+
+                if (view.LogoFile != null)
                 {
-                    //  var nombre = await db.Leagues.FindAsync(view.Name);
-
-                    var table = _db.Leagues
-                        .Where(u => u.Name.ToLower() == view.Name.ToLower())
-                        .FirstOrDefaultAsync();
-
-                    if (table.Result != null)
-                    {
-                        ModelState.AddModelError(string.Empty, "Este nombre ya esta en uso, escoja uno diferente");
-
-                    }
-                    else
-                    {
-                        var pic = string.Empty;
-                        var folder = "~/Content/Logos";
-
-                        if (view.LogoFile != null)
-                        {
-                            pic = FilesHelper.UploadPhoto(view.LogoFile, folder,"");
-                            pic = string.Format("{0}/{1}", folder, pic);
-                        }
-
-                        var league = ToLeague(view);
-                        league.Logo = pic;
-
-                        _db.Leagues.Add(league);
-                        await _db.SaveChangesAsync();
-                        return RedirectToAction("Index");
-                    }
+                    pic = FilesHelper.UploadPhoto(view.LogoFile, folder,"");
+                    pic = string.Format("{0}/{1}", folder, pic);
                 }
 
-                return View(view);
+                var league = ToLeague(view);
+                league.Logo = pic;
+                _db.Leagues.Add(league);
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
-            catch (Exception e)
-            {
-                string message = string.Format("Message: {0}", e.Message);
-                message += string.Format("Inner: {0}", e.InnerException);
-                ModelState.AddModelError(string.Empty, message);
-                return View(view);
-            }
+
+            return View(view);
         }
-
-
-        //protected override void OnException(ExceptionContext filterContext)
-        //{
-        //    Exception exception = filterContext.Exception;
-        //    //Logging the Exception
-        //    filterContext.ExceptionHandled = true;
-
-
-        //    var Result = this.View("Error", new HandleErrorInfo(exception,
-        //        filterContext.RouteData.Values["controller"].ToString(),
-        //        filterContext.RouteData.Values["action"].ToString()));
-
-        //    filterContext.Result = Result;
-
-        //}
 
         private League ToLeague(LeagueView view)
         {
             return new League
             {
-
                 LeagueId = view.LeagueId,
                 Logo = view.Logo,
                 Name = view.Name,
-                Teams = view.Teams
+                Teams = view.Teams,
             };
         }
 
@@ -373,13 +462,13 @@ namespace Backend.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var league = await _db.Leagues.FindAsync(id);
 
             if (league == null)
             {
                 return HttpNotFound();
             }
-            // ViewBag.TeamId = new SelectList(db.Leagues, "TeamId", "Name", Leagues.TeamId);
 
             var view = ToView(league);
             return View(view);
@@ -389,61 +478,37 @@ namespace Backend.Controllers
         {
             return new LeagueView
             {
-
                 LeagueId = league.LeagueId,
                 Logo = league.Logo,
                 Name = league.Name,
-                Teams = league.Teams
+                Teams = league.Teams,
             };
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(LeagueView view)
         {
-            try
+            if (ModelState.IsValid)
             {
-                var table = _db.Leagues
-                .Where(u => u.Name.ToLower() == view.Name.ToLower() && u.LeagueId != view.LeagueId)
-                .FirstOrDefaultAsync();
+                var pic = view.Logo;
+                var folder = "~/Content/Leagues";
 
-                if (table.Result != null)
+                if (view.LogoFile != null)
                 {
-                    ModelState.AddModelError(string.Empty, "Este nombre ya esta en uso, escoja uno diferente");
-
+                    pic = FilesHelper.UploadPhoto(view.LogoFile, folder,"");
+                    pic = string.Format("{0}/{1}", folder, pic);
                 }
-                else
-                {
 
-
-                    if (ModelState.IsValid)
-                    {
-                        var pic = view.Logo;
-                        var folder = "~/Content/Logos";
-
-                        if (view.LogoFile != null)
-                        {
-                            pic = FilesHelper.UploadPhoto(view.LogoFile, folder,"");
-                            pic = string.Format("{0}/{1}", folder, pic);
-                        }
-
-                        var league = ToLeague(view);
-                        league.Logo = pic;
-
-                        _db.Entry(league).State = EntityState.Modified;
-                        await _db.SaveChangesAsync();
-                        return RedirectToAction("Index");
-                    }
-                }
-                return View(view);
+                var league = ToLeague(view);
+                league.Logo = pic;
+                _db.Entry(league).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
-            catch (Exception e)
-            {
-                string message = string.Format("Message: {0}", e.Message);
-                message += string.Format("Inner: {0}", e.InnerException);
-                ModelState.AddModelError(string.Empty, message);
-                return View(view);
-            }
+
+            return View(view);
         }
 
         public async Task<ActionResult> Delete(int? id)
@@ -452,7 +517,9 @@ namespace Backend.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var league = await _db.Leagues.FindAsync(id);
+
             if (league == null)
             {
                 return HttpNotFound();
@@ -462,6 +529,7 @@ namespace Backend.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             var league = await _db.Leagues.FindAsync(id);
