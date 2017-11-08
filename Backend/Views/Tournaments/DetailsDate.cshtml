@@ -61,18 +61,18 @@ else
                     @Html.DisplayFor(modelItem => item.Local.Name)
                 </td>
                 <td>
-                    @if (!string.IsNullOrEmpty(item.Local.LogoT))
+                    @if (!string.IsNullOrEmpty(item.Local.Logo))
                     {
-                        <img src="@Url.Content(item.Local.LogoT)" alt="Image" style="width:80px;height:80px;max-width: 100%; height: auto;" />
+                        <img src="@Url.Content(item.Local.Logo)" alt="Image" style="width:80px;height:80px;max-width: 100%; height: auto;" />
                     }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Visitor.Name)
                 </td>
                 <td>
-                    @if (!string.IsNullOrEmpty(item.Visitor.LogoT))
+                    @if (!string.IsNullOrEmpty(item.Visitor.Logo))
                     {
-                        <img src="@Url.Content(item.Visitor.LogoT)" alt="Image" style="width:80px;height:80px;max-width: 100%; height: auto;" />
+                        <img src="@Url.Content(item.Visitor.Logo)" alt="Image" style="width:80px;height:80px;max-width: 100%; height: auto;" />
                     }
                 </td>
                 <td>

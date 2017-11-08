@@ -8,19 +8,18 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Backend.Classes;
-using Backend.Helpers;
 using Backend.Models;
 using Domain;
 using PsTools;
-using UsersHelper = Backend.Helpers.UsersHelper;
 
 namespace Backend.Controllers.API
 {
+    [RoutePrefix("api/Users")]
     public class UsersController : ApiController
     {
         private readonly DataContextLocal _db = new DataContextLocal();
 
-        // GET: api/Users
+        [Route("")]
         public IQueryable<User> GetUsers()
         {
             return _db.Users;
@@ -100,24 +99,24 @@ namespace Backend.Controllers.API
             var user = ToUser(request);
             _db.Users.Add(user);
             await _db.SaveChangesAsync();
-            UsersHelper.CreateUserAsp(request.Email, "User", request.Password);
+            Classes.UsersHelper.CreateUserASP(request.Email, "User", request.Password);
 
             return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
         }
-       
+
         private User ToUser(UserRequest request)
         {
-           return new User
-           {
-               Email=request.Email,
-               FavoriteTeamId = request.FavoriteTeamId,
-               FirstName = request.FirstName,
-               LastName = request.LastName,
-               NickName =   request.NickName,
-               Picture = request.Picture,
-               Points=0,
-               UserTypeId= request.UserTypeId,
-           };
+            return new User
+            {
+                Email = request.Email,
+                FavoriteTeamId = request.FavoriteTeamId,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                NickName = request.NickName,
+                Picture = request.Picture,
+                Points = 0,
+                UserTypeId = request.UserTypeId,
+            };
         }
 
 

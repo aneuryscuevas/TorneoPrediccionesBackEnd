@@ -60,6 +60,7 @@
     <Compile Include="League.cs" />
     <Compile Include="Match.cs" />
     <Compile Include="MatchesMap.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Prediction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Status.cs" />

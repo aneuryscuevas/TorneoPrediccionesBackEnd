@@ -17,7 +17,7 @@ namespace Domain
         public string Name { get; set; }
 
         [DataType(DataType.ImageUrl)]
-        public string LogoTo { get; set; }
+        public string Logo { get; set; }
        
         [Display(Name = "Is Active?")]
         public bool IsActive { get; set; }

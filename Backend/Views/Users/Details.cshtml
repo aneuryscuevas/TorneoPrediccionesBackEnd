@@ -100,7 +100,7 @@
                         @Html.DisplayNameFor(model => model.UserGroups.FirstOrDefault().Name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.UserGroups.FirstOrDefault().LogoG)
+                        @Html.DisplayNameFor(model => model.UserGroups.FirstOrDefault().Logo)
                     </th>
                     <th>
                         # Members
@@ -115,9 +115,9 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            @if (!string.IsNullOrEmpty(item.LogoG))
+                            @if (!string.IsNullOrEmpty(item.Logo))
                             {
-                                <img src="@Url.Content(item.LogoG)" alt="Image" style="width:150px;height:150px;max-width: 100%; height: auto;" />
+                                <img src="@Url.Content(item.Logo)" alt="Image" style="width:150px;height:150px;max-width: 100%; height: auto;" />
                             }
                         </td>
                         <td>
@@ -148,7 +148,7 @@
                         @Html.DisplayNameFor(model => model.Groups.FirstOrDefault().Name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Groups.FirstOrDefault().LogoG)
+                        @Html.DisplayNameFor(model => model.Groups.FirstOrDefault().Logo)
                     </th>
                     <th>
                         Owner
@@ -166,9 +166,9 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            @if (!string.IsNullOrEmpty(item.LogoG))
+                            @if (!string.IsNullOrEmpty(item.Logo))
                             {
-                                <img src="@Url.Content(item.LogoG)" alt="Image" style="width:150px;height:150px;max-width: 100%; height: auto;" />
+                                <img src="@Url.Content(item.Logo)" alt="Image" style="width:150px;height:150px;max-width: 100%; height: auto;" />
                             }
                         </td>
                         <td>

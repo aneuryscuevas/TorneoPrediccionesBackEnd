@@ -15,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LogoTo)
+            @Html.DisplayNameFor(model => model.Logo)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.IsActive)
@@ -38,9 +38,9 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @if (!string.IsNullOrEmpty(item.LogoTo))
+                @if (!string.IsNullOrEmpty(item.Logo))
                 {
-                    <img src="@Url.Content(item.LogoTo)" alt="Image" style="width:100px;height:100px;max-width: 100%; height: auto;" />
+                    <img src="@Url.Content(item.Logo)" alt="Image" style="width:100px;height:100px;max-width: 100%; height: auto;" />
                 }
             </td>
             <td>

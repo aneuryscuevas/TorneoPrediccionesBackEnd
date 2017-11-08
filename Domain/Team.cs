@@ -17,7 +17,7 @@ namespace Domain
         public string Name { get; set; }
 
         [DataType(DataType.ImageUrl)]
-        public string LogoT { get; set; }
+        public string Logo { get; set; }
 
         [Required(ErrorMessage = "Este campo es requerido")]
         [StringLength(3, ErrorMessage = "La longitud para el campo {0}  debe ser {1} caracteres", MinimumLength = 3)]

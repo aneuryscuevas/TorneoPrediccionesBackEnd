@@ -14,7 +14,7 @@ using Domain;
 namespace API.Controllers
 {
     [RoutePrefix("api/Tournaments")]
-   [Authorize(Roles = "User")]
+  // [Authorize(Roles = "User")]
     public class TournamentsController : ApiController
     {
         private readonly DataContextLocal _db = new DataContextLocal();
@@ -309,7 +309,7 @@ namespace API.Controllers
                     {
                         Dates = tournament.Dates.ToList(),
                         Groups = tournament.Groups.ToList(),
-                        LogoTo = tournament.LogoTo,
+                        Logo = tournament.Logo,
                         Name = tournament.Name,
                         TournamentId = tournament.TournamentId,
                     });

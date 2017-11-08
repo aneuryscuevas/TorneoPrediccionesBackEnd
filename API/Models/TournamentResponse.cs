@@ -9,7 +9,7 @@ namespace API.Models
 
         public string Name { get; set; }
 
-        public string LogoTo { get; set; }
+        public string Logo { get; set; }
       //  public bool IsActive { get; set; }
        // public int Order { get; set; }
         public   List<TournamentGroup> Groups { get; set; }

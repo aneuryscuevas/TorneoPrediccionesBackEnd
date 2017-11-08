@@ -12,7 +12,7 @@ using Domain;
 namespace API.Controllers
 {
     //[Authorize]
-    [Authorize(Roles = "User")]
+  
     public class LeaguesController : ApiController
     {
         private readonly DataContext _db = new DataContext();
@@ -26,7 +26,7 @@ namespace API.Controllers
                 list.Add(new LeagueResponse
                 {
                     LeagueId = league.LeagueId,
-                    LogoL = league.LogoL,
+                    Logo = league.Logo,
                     Name = league.Name,
                     Teams = league.Teams.ToList(),
                 });
@@ -35,7 +35,7 @@ namespace API.Controllers
             return Ok(list);
         }
 
-        [Authorize]
+       // [Authorize(Roles = "User")]
         [ResponseType(typeof(League))]
         public async Task<IHttpActionResult> GetLeague(int id)
         {
@@ -126,6 +126,7 @@ namespace API.Controllers
         //    return Ok(league);
         //}
         // PUT: api/Leagues/5
+       // [Authorize(Roles = "User")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutLeague(int id, League league)
         {
@@ -161,6 +162,7 @@ namespace API.Controllers
         }
 
         // POST: api/Leagues
+      //  [Authorize(Roles = "User")]
         [ResponseType(typeof(League))]
         public async Task<IHttpActionResult> PostLeague(League league)
         {
@@ -176,6 +178,7 @@ namespace API.Controllers
         }
 
         // DELETE: api/Leagues/5
+     //   [Authorize(Roles = "User")]
         [ResponseType(typeof(League))]
         public async Task<IHttpActionResult> DeleteLeague(int id)
         {

@@ -59,7 +59,7 @@ namespace Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                var pic = view.LogoT;
+                var pic = view.Logo;
                 var folder = "~/Content/Teams";
 
                 if (view.LogoTFile != null)
@@ -69,7 +69,7 @@ namespace Backend.Controllers
                 }
 
                 var team = ToTeam(view);
-                team.LogoT = pic;
+                team.Logo = pic;
                 _db.Entry(team).State = EntityState.Modified;
                 await _db.SaveChangesAsync();
                 return RedirectToAction(string.Format("Details/{0}", view.LeagueId));
@@ -114,7 +114,7 @@ namespace Backend.Controllers
                 }
 
                 var team = ToTeam(view);
-                team.LogoT = pic;
+                team.Logo = pic;
                 _db.Teams.Add(team);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(string.Format("Details/{0}", view.LeagueId));
@@ -130,7 +130,7 @@ namespace Backend.Controllers
                 Initials = view.Initials,
                 League = view.League,
                 LeagueId = view.LeagueId,
-                LogoT = view.LogoT,
+                Logo = view.Logo,
                 Name = view.Name,
                 TeamId = view.TeamId,
             };
@@ -143,7 +143,7 @@ namespace Backend.Controllers
                 Initials = team.Initials,
                 League = team.League,
                 LeagueId = team.LeagueId,
-                LogoT = team.LogoT,
+                Logo = team.Logo,
                 Name = team.Name,
                 TeamId = team.TeamId,
             };
@@ -436,7 +436,7 @@ namespace Backend.Controllers
                 }
 
                 var league = ToLeague(view);
-                league.LogoL = pic;
+                league.Logo = pic;
                 _db.Leagues.Add(league);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -450,7 +450,7 @@ namespace Backend.Controllers
             return new League
             {
                 LeagueId = view.LeagueId,
-                LogoL = view.LogoL,
+                Logo = view.Logo,
                 Name = view.Name,
                 Teams = view.Teams,
             };
@@ -479,7 +479,7 @@ namespace Backend.Controllers
             return new LeagueView
             {
                 LeagueId = league.LeagueId,
-                LogoL = league.LogoL,
+                Logo = league.Logo,
                 Name = league.Name,
                 Teams = league.Teams,
             };
@@ -492,7 +492,7 @@ namespace Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                var pic = view.LogoL;
+                var pic = view.Logo;
                 var folder = "~/Content/Leagues";
 
                 if (view.LogoLFile != null)
@@ -502,7 +502,7 @@ namespace Backend.Controllers
                 }
 
                 var league = ToLeague(view);
-                league.LogoL = pic;
+                league.Logo = pic;
                 _db.Entry(league).State = EntityState.Modified;
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index");

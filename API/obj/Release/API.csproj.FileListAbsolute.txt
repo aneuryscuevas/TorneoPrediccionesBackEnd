@@ -408,8 +408,5 @@ W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\bin\Microsoft
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\bin\System.Web.Http.Owin.xml
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Release\API.csprojResolveAssemblyReference.cache
-W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Release\API.Migrations.Initial.resources
-W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Release\API.csproj.GenerateResource.Cache
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Release\API.dll
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Release\API.pdb
-W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Release\API.Migrations.Addingnewcolumnnames.resources

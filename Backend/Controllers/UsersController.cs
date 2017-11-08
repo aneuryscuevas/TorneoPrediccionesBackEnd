@@ -167,7 +167,7 @@ namespace Backend.Controllers
             {
                 GroupId = group.GroupId,
                 GroupUsers = group.GroupUsers,
-                LogoG = group.LogoG,
+                Logo = group.Logo,
                 Name = group.Name,
                 Owner = group.Owner,
                 OwnerId = group.OwnerId,
@@ -181,7 +181,7 @@ namespace Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                var pic = view.LogoG;
+                var pic = view.Logo;
                 var folder = "~/Content/Groups";
 
                 if (view.LogoGFile != null)
@@ -191,7 +191,7 @@ namespace Backend.Controllers
                 }
 
                 var group = ToGroup(view);
-                group.LogoG = pic;
+                group.Logo = pic;
                 _db.Entry(group).State = EntityState.Modified;
                 await _db.SaveChangesAsync();
                 return RedirectToAction(string.Format("Details/{0}", view.OwnerId));
@@ -235,7 +235,7 @@ namespace Backend.Controllers
                 }
 
                 var group = ToGroup(view);
-                group.LogoG = pic;
+                group.Logo = pic;
                 _db.Groups.Add(group);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(string.Format("Details/{0}", view.OwnerId));
@@ -250,7 +250,7 @@ namespace Backend.Controllers
             {
                 GroupId = view.GroupId,
                 GroupUsers = view.GroupUsers,
-                LogoG = view.LogoG,
+                Logo = view.Logo,
                 Name = view.Name,
                 Owner = view.Owner,
                 OwnerId = view.OwnerId,
@@ -298,7 +298,7 @@ namespace Backend.Controllers
                     {
                         GroupId = group.GroupId,
                         GroupUsers = group.GroupUsers,
-                        LogoG = group.LogoG,
+                        Logo = group.Logo,
                         Name = group.Name,
                         Owner = group.Owner,
                         OwnerId = group.OwnerId,

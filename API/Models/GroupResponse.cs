@@ -11,7 +11,7 @@ namespace API.Models
         
         public int OwnerId { get; set; }
 
-        public string LogoG { get; set; }
+        public string Logo { get; set; }
 
         public   User Owner { get; set; }
         

@@ -11,18 +11,18 @@
         <table>
             <tr>
                 <td width="200px" align="center">
-                    @if (!string.IsNullOrEmpty(Model.Match.Local.LogoT))
+                    @if (!string.IsNullOrEmpty(Model.Match.Local.Logo))
                     {
-                        <img src="@Url.Content(Model.Match.Local.LogoT)" alt="Image" style="width:120px;height:120px;max-width: 100%; height: auto;" />
+                        <img src="@Url.Content(Model.Match.Local.Logo)" alt="Image" style="width:120px;height:120px;max-width: 100%; height: auto;" />
                     }
                 </td>
                 <td width="50px" align="center">
                     <h2>Vs.</h2>
                 </td>
                 <td width="200px" align="center">
-                    @if (!string.IsNullOrEmpty(Model.Match.Visitor.LogoT))
+                    @if (!string.IsNullOrEmpty(Model.Match.Visitor.Logo))
                     {
-                        <img src="@Url.Content(Model.Match.Visitor.LogoT)" alt="Image" style="width:120px;height:120px;max-width: 100%; height: auto;" />
+                        <img src="@Url.Content(Model.Match.Visitor.Logo)" alt="Image" style="width:120px;height:120px;max-width: 100%; height: auto;" />
                     }
                 </td>
             </tr>

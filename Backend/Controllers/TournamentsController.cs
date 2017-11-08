@@ -928,7 +928,7 @@ namespace Backend.Controllers
                 }
 
                 var tournament = ToTournament(view);
-                tournament.LogoTo = pic;
+                tournament.Logo = pic;
                 _db.Tournaments.Add(tournament);
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -942,7 +942,7 @@ namespace Backend.Controllers
             return new Tournament
             {
                 Groups = view.Groups,
-                LogoTo = view.LogoTo,
+                Logo = view.Logo,
                 Name = view.Name,
                 TournamentId = view.TournamentId,
                 Order = view.Order,
@@ -973,7 +973,7 @@ namespace Backend.Controllers
             return new TournamentView
             {
                 Groups = tournament.Groups,
-                LogoTo = tournament.LogoTo,
+                Logo = tournament.Logo,
                 Name = tournament.Name,
                 TournamentId = tournament.TournamentId,
                 Order = tournament.Order,
@@ -988,7 +988,7 @@ namespace Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                var pic = view.LogoTo;
+                var pic = view.Logo;
                 var folder = "~/Content/Tournaments";
 
                 if (view.LogoToFile != null)
@@ -998,7 +998,7 @@ namespace Backend.Controllers
                 }
 
                 var tournament = ToTournament(view);
-                tournament.LogoTo = pic;
+                tournament.Logo = pic;
                 _db.Entry(tournament).State = EntityState.Modified;
                 await _db.SaveChangesAsync();
                 return RedirectToAction("Index");

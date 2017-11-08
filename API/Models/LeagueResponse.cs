@@ -9,7 +9,7 @@ namespace API.Models
         
         public string Name { get; set; }
         
-        public string LogoL { get; set; }
+        public string Logo { get; set; }
         
         public List<Team> Teams { get; set; }
 

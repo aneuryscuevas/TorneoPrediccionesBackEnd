@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -25,26 +26,34 @@ namespace API.Controllers
         [ResponseType(typeof(Group))]
         public async Task<IHttpActionResult> GetGroup(int id)
         {
-            var groups = await _db.Groups.ToListAsync();
-            var list = new List<GroupResponse>();
-            foreach (var group in groups)
+            try
             {
-                var userGroup = group.GroupUsers.Where(gu => gu.UserId == id).FirstOrDefault();
-                if (userGroup != null)
+                var groups = await _db.Groups.ToListAsync();
+                var list = new List<GroupResponse>();
+                foreach (var group in groups)
                 {
-                    list.Add(new GroupResponse
+                    var userGroup = group.GroupUsers.Where(gu => gu.UserId == id).FirstOrDefault();
+                    if (userGroup != null)
                     {
-                        GroupId = group.GroupId,
-                        GroupUsers = ToGroupUserResponse(group.GroupUsers),
-                        LogoG = group.LogoG,
-                        Name = group.Name,
-                        Owner = group.Owner,
-                        OwnerId = group.OwnerId,
-                    });
-                }
+                        list.Add(new GroupResponse
+                        {
+                            GroupId = group.GroupId,
+                            GroupUsers = ToGroupUserResponse(group.GroupUsers),
+                            Logo = group.Logo,
+                            Name = group.Name,
+                            Owner = group.Owner,
+                            OwnerId = group.OwnerId,
+                        });
+                    }
 
+                }
+                return Ok(list);
             }
-            return Ok(list);
+            catch (Exception e)
+            {
+                return Ok();
+            }
+            
         }
 
         private List<GroupUserResponse> ToGroupUserResponse(ICollection<GroupUser> groupUsers)

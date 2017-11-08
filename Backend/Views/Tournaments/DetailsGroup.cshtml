@@ -17,7 +17,7 @@ else
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TournamentTeams.FirstOrDefault().Team.LogoT)
+                @Html.DisplayNameFor(model => model.TournamentTeams.FirstOrDefault().Team.Logo)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TournamentTeams.FirstOrDefault().Team.Name)
@@ -52,9 +52,9 @@ else
         {
             <tr>
                 <td>
-                    @if (!string.IsNullOrEmpty(item.Team.LogoT))
+                    @if (!string.IsNullOrEmpty(item.Team.Logo))
                     {
-                        <img src="@Url.Content(item.Team.LogoT)" alt="Image" style="width:80px;height:80px;max-width: 100%; height: auto;" />
+                        <img src="@Url.Content(item.Team.Logo)" alt="Image" style="width:80px;height:80px;max-width: 100%; height: auto;" />
                     }
                 </td>
                 <td>
