@@ -3,3 +3,6 @@ API/Web.config
 Backend/Web.config
 *.config
 *.config
+API/Web.config
+Backend/Web.config
+*.config
