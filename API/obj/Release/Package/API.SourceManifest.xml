@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<sitemanifest>
-  <IisApp path="W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Release\Package\PackageTmp" />
-  <setAcl path="W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
-  <setAcl path="W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\API\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
-</sitemanifest>

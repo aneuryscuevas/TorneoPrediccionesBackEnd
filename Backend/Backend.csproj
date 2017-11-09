@@ -200,7 +200,6 @@
     <Compile Include="Controllers\LeaguesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
-    <Compile Include="Controllers\NewUserController.cs" />
     <Compile Include="Controllers\PredictionsController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\TournamentsController.cs" />
