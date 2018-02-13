@@ -16,7 +16,7 @@ using FilesHelper = API.Classes.FilesHelper;
 namespace API.Controllers
 {
     [RoutePrefix("api/Users")]
-    [Authorize(Roles = "User")]
+   // [Authorize(Roles = "User")]
 
     public class UsersController : ApiController
     {
@@ -128,6 +128,7 @@ namespace API.Controllers
             }
 
         }
+
         [HttpGet]
         [Route("GetPoints/{id}")]
         public async Task<IHttpActionResult> GetPoints(int id)
@@ -178,6 +179,7 @@ namespace API.Controllers
             return Ok("ok");
 
         }
+
         [HttpPost]
         [Route("GetUserByEmail")]
         public async Task<IHttpActionResult> GetUserByEmail(JObject form)
@@ -230,6 +232,7 @@ namespace API.Controllers
             var userResponse = ToUserResponse(user);
             return Ok(userResponse);
         }
+
         private async Task AddUserToGroup(int userId)
         {
             var groups = await _db.Groups.ToListAsync();
@@ -342,6 +345,7 @@ namespace API.Controllers
 
         // PUT: api/Users/5
         // PUT: api/Users/5
+
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutUser(int id, UserRequest request)
         {

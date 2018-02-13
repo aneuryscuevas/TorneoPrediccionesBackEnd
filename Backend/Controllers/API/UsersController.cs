@@ -8,19 +8,16 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Backend.Classes;
-using Backend.Helpers;
 using Backend.Models;
 using Domain;
 using PsTools;
-using UsersHelper = Backend.Helpers.UsersHelper;
 
 namespace Backend.Controllers.API
 {
-
     [RoutePrefix("api/Users")]
     public class UsersController : ApiController
     {
-        private readonly DataContext _db = new DataContext();
+        private DataContextLocal _db = new DataContextLocal();
 
         // GET: api/Users
         public IQueryable<User> GetUsers()
@@ -75,7 +72,7 @@ namespace Backend.Controllers.API
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-        // POST: api/Users
+
         [ResponseType(typeof(User))]
         public async Task<IHttpActionResult> PostUser(UserRequest request)
         {
@@ -102,10 +99,11 @@ namespace Backend.Controllers.API
             var user = ToUser(request);
             _db.Users.Add(user);
             await _db.SaveChangesAsync();
-            UsersHelper.CreateUserAsp(request.Email, "User", request.Password);
+            UsersHelper.CreateUserASP(request.Email, "User", request.Password);
 
             return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
         }
+
 
         private User ToUser(UserRequest request)
         {
@@ -121,9 +119,7 @@ namespace Backend.Controllers.API
                 UserTypeId = request.UserTypeId,
             };
         }
-
-
-        //// POST: api/Users
+        // POST: api/Users
         //[ResponseType(typeof(User))]
         //public async Task<IHttpActionResult> PostUser(User user)
         //{

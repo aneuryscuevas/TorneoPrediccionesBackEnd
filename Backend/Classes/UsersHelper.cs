@@ -115,9 +115,9 @@ namespace Backend.Classes
             var response = await userManager.AddPasswordAsync(userASP.Id, newPassword);
             if (response.Succeeded)
             {
-                var subject = "Soccer App - Recuperación de contraseña";
+                var subject = "Torneo y Predicciones - Recuperación de contraseña";
                 var body = string.Format(@"
-                    <h1>Soccer App - Recuperación de contraseña</h1>
+                    <h1>Torneo y Predicciones - Recuperación de contraseña</h1>
                     <p>Su nueva contraseña es: <strong>{0}</strong></p>
                     <p>Por favor no olvide cambiarla por una de fácil recordación",
                     newPassword);

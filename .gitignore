@@ -7,3 +7,5 @@ API/Web.config
 Backend/Web.config
 *.config
 Backend/Web.config
+*.config
+*.config
