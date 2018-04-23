@@ -118,7 +118,7 @@ namespace Backend.Controllers
                 var file = string.Format("{0}.jpg", guid);
                 var folder = "~/Content/Users";
                 var fullPath = string.Format("{0}/{1}", folder, file);
-                var response = FilesHelper.UploadPhoto(stream, folder, file);
+                var response = Files.UploadPhoto(stream, folder, file);
 
                 if (response)
                 {

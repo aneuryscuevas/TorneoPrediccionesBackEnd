@@ -69,7 +69,7 @@ namespace API.Controllers
             <p>Please, don't forget change it for one easy remember for you.",
                         newPassword);
 
-                    await MailHelper.SendMail(email, subject, body);
+                    await Emails.SendMail(email, subject, body);
                     return Ok(true);
                 }
 

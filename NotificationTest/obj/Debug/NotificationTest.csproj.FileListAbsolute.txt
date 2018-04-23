@@ -8,3 +8,15 @@ W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\NotificationTest\
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\NotificationTest\obj\Debug\NotificationTest.csprojResolveAssemblyReference.cache
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\NotificationTest\obj\Debug\NotificationTest.exe
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\NotificationTest\obj\Debug\NotificationTest.pdb
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\NotificationTest\bin\Debug\NotificationTest.exe.config
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\NotificationTest\bin\Debug\NotificationTest.exe
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\NotificationTest\bin\Debug\NotificationTest.pdb
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\NotificationTest\bin\Debug\Microsoft.Azure.NotificationHubs.dll
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\NotificationTest\bin\Debug\Newtonsoft.Json.dll
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\NotificationTest\bin\Debug\Microsoft.Azure.NotificationHubs.xml
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\NotificationTest\bin\Debug\Newtonsoft.Json.xml
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\NotificationTest\obj\Debug\NotificationTest.csprojResolveAssemblyReference.cache
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\NotificationTest\obj\Debug\NotificationTest.csproj.CoreCompileInputs.cache
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\NotificationTest\obj\Debug\NotificationTest.csproj.CopyComplete
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\NotificationTest\obj\Debug\NotificationTest.exe
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\NotificationTest\obj\Debug\NotificationTest.pdb

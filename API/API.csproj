@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -314,7 +315,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\_PsDESARROLLO\PsCore\PsTools\PsTools.csproj">
+    <ProjectReference Include="..\..\PsCore\PsTools\PsTools.csproj">
       <Project>{6654312b-5e6f-4c22-b2a1-9665825975ba}</Project>
       <Name>PsTools</Name>
     </ProjectReference>

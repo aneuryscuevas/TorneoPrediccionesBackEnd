@@ -923,7 +923,7 @@ namespace Backend.Controllers
 
                 if (view.LogoToFile != null)
                 {
-                    pic = FilesHelper.UploadPhoto(view.LogoToFile, folder,"");
+                    pic = Files.UploadPhoto(view.LogoToFile, folder,"");
                     pic = string.Format("{0}/{1}", folder, pic);
                 }
 
@@ -993,7 +993,7 @@ namespace Backend.Controllers
 
                 if (view.LogoToFile != null)
                 {
-                    pic = FilesHelper.UploadPhoto(view.LogoToFile, folder,"");
+                    pic = Files.UploadPhoto(view.LogoToFile, folder,"");
                     pic = string.Format("{0}/{1}", folder, pic);
                 }
 

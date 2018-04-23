@@ -123,7 +123,7 @@ namespace API.Classes
                     <p>Por favor no olvide cambiarla por una de fácil recordación",
                     newPassword);
 
-                await MailHelper.SendMail(email, subject, body);
+                await Emails.SendMail(email, subject, body);
             }
         }
 

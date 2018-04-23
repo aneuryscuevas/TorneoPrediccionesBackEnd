@@ -64,7 +64,7 @@ namespace Backend.Controllers
 
                 if (view.LogoTFile != null)
                 {
-                    pic = FilesHelper.UploadPhoto(view.LogoTFile, folder,"");
+                    pic = Files.UploadPhoto(view.LogoTFile, folder,"");
                     pic = string.Format("{0}/{1}", folder, pic);
                 }
 
@@ -109,7 +109,7 @@ namespace Backend.Controllers
 
                 if (view.LogoTFile != null)
                 {
-                    pic = FilesHelper.UploadPhoto(view.LogoTFile, folder,"");
+                    pic = Files.UploadPhoto(view.LogoTFile, folder,"");
                     pic = string.Format("{0}/{1}", folder, pic);
                 }
 
@@ -431,7 +431,7 @@ namespace Backend.Controllers
 
                 if (view.LogoLFile != null)
                 {
-                    pic = FilesHelper.UploadPhoto(view.LogoLFile, folder,"");
+                    pic = Files.UploadPhoto(view.LogoLFile, folder,"");
                     pic = string.Format("{0}/{1}", folder, pic);
                 }
 
@@ -497,7 +497,7 @@ namespace Backend.Controllers
 
                 if (view.LogoLFile != null)
                 {
-                    pic = FilesHelper.UploadPhoto(view.LogoLFile, folder,"");
+                    pic = Files.UploadPhoto(view.LogoLFile, folder,"");
                     pic = string.Format("{0}/{1}", folder, pic);
                 }
 

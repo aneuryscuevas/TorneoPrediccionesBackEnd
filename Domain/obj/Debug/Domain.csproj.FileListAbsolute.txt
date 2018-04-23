@@ -10,3 +10,16 @@ W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\bin\Debug\
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\obj\Debug\Domain.dll
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\obj\Debug\Domain.pdb
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Debug\Domain.dll.config
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Debug\Domain.dll
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Debug\Domain.pdb
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Debug\EntityFramework.dll
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Debug\EntityFramework.SqlServer.dll
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Debug\Newtonsoft.Json.dll
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Debug\EntityFramework.xml
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Debug\EntityFramework.SqlServer.xml
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Debug\Newtonsoft.Json.xml
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\obj\Debug\Domain.csproj.CoreCompileInputs.cache
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\obj\Debug\Domain.csproj.CopyComplete
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\obj\Debug\Domain.dll
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\obj\Debug\Domain.pdb
