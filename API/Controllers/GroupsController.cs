@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using API.Classes;
 using API.Models;
 using Domain;
 
@@ -128,20 +130,61 @@ namespace API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Groups
-        [ResponseType(typeof(Group))]
-        public async Task<IHttpActionResult> PostGroup(Group group)
+        [ResponseType(typeof(User))]
+        public async Task<IHttpActionResult> PostGroup(GroupRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            if (request.ImageArray != null && request.ImageArray.Length > 0)
+            {
+                var stream = new MemoryStream(request.ImageArray);
+                var guid = Guid.NewGuid().ToString();
+                var file = string.Format("{0}.jpg", guid);
+                var folder = "~/Content/Logos";
+                var fullPath = string.Format("{0}/{1}", folder, file);
+                var response = FilesHelper.UploadPhoto(stream, folder, file);
+
+                if (response)
+                {
+                    request.Logo = fullPath;
+                }
+            }
+
+            var group = ToGroup(request);
             _db.Groups.Add(group);
             await _db.SaveChangesAsync();
-
+            // CreateUserAsp(request.Email, "User", request.Password);
             return CreatedAtRoute("DefaultApi", new { id = group.GroupId }, group);
+           // return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
         }
+
+        private Group ToGroup(GroupRequest request)
+        {
+            return new Group
+            {
+                Name = request.Name,
+                Requirements = request.Requirements,
+                OwnerId = request.OwnerId,
+                Logo = request.Logo
+            };
+        }
+       
+        //[ResponseType(typeof(Group))]
+        //public async Task<IHttpActionResult> PostGroup(Group group)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    _db.Groups.Add(group);
+        //    await _db.SaveChangesAsync();
+
+        //    return CreatedAtRoute("DefaultApi", new { id = group.GroupId }, group);
+        //}
 
         // DELETE: api/Groups/5
         [ResponseType(typeof(Group))]

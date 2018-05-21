@@ -191,6 +191,7 @@
     <Compile Include="Classes\DBHelper.cs" />
     <Compile Include="Classes\MailHelper.cs" />
     <Compile Include="Classes\Response.cs" />
+    <Compile Include="Classes\TokenResponse.cs" />
     <Compile Include="Classes\UserRequest.cs" />
     <Compile Include="Classes\UsersHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -210,6 +211,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ApiService.cs" />
+    <Compile Include="Helpers\Files.cs" />
     <Compile Include="Helpers\UsersHelper.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

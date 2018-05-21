@@ -16,60 +16,60 @@ namespace Backend.Controllers
     {
         private readonly DataContextLocal _db = new DataContextLocal();
 
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> DeleteUser(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult> DeleteUser(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            var groupUser = await _db.GroupUsers.FindAsync(id);
+        //    var groupUser = await _db.GroupUsers.FindAsync(id);
 
-            if (groupUser == null)
-            {
-                return HttpNotFound();
-            }
+        //    if (groupUser == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-            _db.GroupUsers.Remove(groupUser);
-            await _db.SaveChangesAsync();
-            return RedirectToAction(string.Format("DetailsGroup/{0}", groupUser.GroupId));
-        }
+        //    _db.GroupUsers.Remove(groupUser);
+        //    await _db.SaveChangesAsync();
+        //    return RedirectToAction(string.Format("DetailsGroup/{0}", groupUser.GroupId));
+        //}
 
 
-        public async Task<ActionResult> EditUser(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //public async Task<ActionResult> EditUser(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            var groupUser = await _db.GroupUsers.FindAsync(id);
+        //    var groupUser = await _db.GroupUsers.FindAsync(id);
 
-            if (groupUser == null)
-            {
-                return HttpNotFound();
-            }
+        //    if (groupUser == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-            ViewBag.UserId = new SelectList(_db.Users.OrderBy(u => u.FirstName).ThenBy(u => u.LastName), "UserId", "FullName", groupUser.UserId);
-            return View(groupUser);
-        }
+        //    ViewBag.UserId = new SelectList(_db.Users.OrderBy(u => u.FirstName).ThenBy(u => u.LastName), "UserId", "FullName", groupUser.UserId);
+        //    return View(groupUser);
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> EditUser(GroupUser groupUser)
-        {
-            if (ModelState.IsValid)
-            {
-                _db.Entry(groupUser).State = EntityState.Modified;
-                await _db.SaveChangesAsync();
-                return RedirectToAction(string.Format("DetailsGroup/{0}", groupUser.GroupId));
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult> EditUser(GroupUser groupUser)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _db.Entry(groupUser).State = EntityState.Modified;
+        //        await _db.SaveChangesAsync();
+        //        return RedirectToAction(string.Format("DetailsGroup/{0}", groupUser.GroupId));
+        //    }
 
-            ViewBag.UserId = new SelectList(_db.Users.OrderBy(u => u.FirstName).ThenBy(u => u.LastName), "UserId", "FullName", groupUser.UserId);
-            return View(groupUser);
-        }
+        //    ViewBag.UserId = new SelectList(_db.Users.OrderBy(u => u.FirstName).ThenBy(u => u.LastName), "UserId", "FullName", groupUser.UserId);
+        //    return View(groupUser);
+        //}
 
         public async Task<ActionResult> AddUser(int? id)
         {
@@ -123,43 +123,43 @@ namespace Backend.Controllers
             return View(group);
         }
 
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> DeleteGroup(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult> DeleteGroup(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            var group = await _db.Groups.FindAsync(id);
+        //    var group = await _db.Groups.FindAsync(id);
 
-            if (group == null)
-            {
-                return HttpNotFound();
-            }
+        //    if (group == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-            _db.Groups.Remove(group);
-            await _db.SaveChangesAsync();
-            return RedirectToAction(string.Format("Details/{0}", group.OwnerId));
-        }
+        //    _db.Groups.Remove(group);
+        //    await _db.SaveChangesAsync();
+        //    return RedirectToAction(string.Format("Details/{0}", group.OwnerId));
+        //}
 
-        public async Task<ActionResult> EditGroup(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //public async Task<ActionResult> EditGroup(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            var group = await _db.Groups.FindAsync(id);
+        //    var group = await _db.Groups.FindAsync(id);
 
-            if (group == null)
-            {
-                return HttpNotFound();
-            }
+        //    if (group == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-            var view = ToView(group);
-            return View(view);
-        }
+        //    var view = ToView(group);
+        //    return View(view);
+        //}
 
         private GroupView ToView(Group group)
         {
@@ -174,75 +174,75 @@ namespace Backend.Controllers
             };
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> EditGroup(GroupView view)
-        {
-            if (ModelState.IsValid)
-            {
-                var pic = view.Logo;
-                var folder = "~/Content/Groups";
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult> EditGroup(GroupView view)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var pic = view.Logo;
+        //        var folder = "~/Content/Groups";
 
-                if (view.LogoGFile != null)
-                {
-                    pic = Files.UploadPhoto(view.LogoGFile, folder,"");
-                    pic = string.Format("{0}/{1}", folder, pic);
-                }
+        //        if (view.LogoGFile != null)
+        //        {
+        //            pic = Files.UploadPhoto(view.LogoGFile, folder,"");
+        //            pic = string.Format("{0}/{1}", folder, pic);
+        //        }
 
-                var group = ToGroup(view);
-                group.Logo = pic;
-                _db.Entry(group).State = EntityState.Modified;
-                await _db.SaveChangesAsync();
-                return RedirectToAction(string.Format("Details/{0}", view.OwnerId));
-            }
+        //        var group = ToGroup(view);
+        //        group.Logo = pic;
+        //        _db.Entry(group).State = EntityState.Modified;
+        //        await _db.SaveChangesAsync();
+        //        return RedirectToAction(string.Format("Details/{0}", view.OwnerId));
+        //    }
 
-            return View(view);
-        }
+        //    return View(view);
+        //}
 
-        public async Task<ActionResult> CreateGroup(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        //public async Task<ActionResult> CreateGroup(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-            var user = await _db.Users.FindAsync(id);
+        //    var user = await _db.Users.FindAsync(id);
 
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
+        //    if (user == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-            var view = new GroupView { OwnerId = user.UserId, };
-            return View(view);
-        }
+        //    var view = new GroupView { OwnerId = user.UserId, };
+        //    return View(view);
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> CreateGroup(GroupView view)
-        {
-            if (ModelState.IsValid)
-            {
-                var pic = string.Empty;
-                var folder = "~/Content/Groups";
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult> CreateGroup(GroupView view)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var pic = string.Empty;
+        //        var folder = "~/Content/Groups";
 
-                if (view.LogoGFile != null)
-                {
-                    pic = Files.UploadPhoto(view.LogoGFile, folder,"");
-                    pic = string.Format("{0}/{1}", folder, pic);
-                }
+        //        if (view.LogoGFile != null)
+        //        {
+        //            pic = Files.UploadPhoto(view.LogoGFile, folder,"");
+        //            pic = string.Format("{0}/{1}", folder, pic);
+        //        }
 
-                var group = ToGroup(view);
-                group.Logo = pic;
-                _db.Groups.Add(group);
-                await _db.SaveChangesAsync();
-                return RedirectToAction(string.Format("Details/{0}", view.OwnerId));
-            }
+        //        var group = ToGroup(view);
+        //        group.Logo = pic;
+        //        _db.Groups.Add(group);
+        //        await _db.SaveChangesAsync();
+        //        return RedirectToAction(string.Format("Details/{0}", view.OwnerId));
+        //    }
 
-            return View(view);
-        }
+        //    return View(view);
+        //}
 
         private Group ToGroup(GroupView view)
         {

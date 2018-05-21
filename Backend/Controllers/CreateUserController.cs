@@ -11,6 +11,7 @@ using PsTools;
 
 namespace Backend.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CreateUserController : ApiController
     {
         private DataContextLocal _db = new DataContextLocal();

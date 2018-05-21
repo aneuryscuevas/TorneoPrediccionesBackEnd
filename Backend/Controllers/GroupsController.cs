@@ -9,9 +9,11 @@ using System.Web;
 using System.Web.Mvc;
 using Backend.Models;
 using Domain;
+using Backend.Helpers;
 
 namespace Backend.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class GroupsController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
@@ -22,45 +24,60 @@ namespace Backend.Controllers
             var groups = db.Groups.Include(g => g.Owner);
             return View(await groups.ToListAsync());
         }
-
-        // GET: Groups/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Group group = await db.Groups.FindAsync(id);
-            if (group == null)
-            {
-                return HttpNotFound();
-            }
-            return View(group);
-        }
-
         // GET: Groups/Create
         public ActionResult Create()
         {
             ViewBag.OwnerId = new SelectList(db.Users, "UserId", "FirstName");
+
             return View();
         }
-
+        private readonly ApiService _apiService;
         // POST: Groups/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "GroupId,Name,OwnerId,Logo")] Group group)
+        public async Task<ActionResult> Create( GroupView view)
         {
             if (ModelState.IsValid)
             {
-                db.Groups.Add(group);
-                await db.SaveChangesAsync();
+                ////var pic = string.Empty;
+                ////var folder = "~/Content/Users";
+
+                ////if (view.PictureFile != null)
+                ////{
+                ////    pic = Files.UploadPhoto(view.PictureFile, folder, "");
+                ////    pic = string.Format("{0}/{1}", folder, pic);
+                ////}
+
+                ////var user = ToUser(view);
+                ////user.Picture = pic;
+
+                var imageArray = FilesHelper.ReadFully(view.LogoGFile.InputStream);// _file.GetStream());
+               // _file.Dispose();
+
+                var group = new Group
+                {
+                    Logo = view.Logo,
+                    Name= view.Name,
+                    OwnerId= view.OwnerId,
+                    Requirements= view.Requirements,
+                    ImageArray = imageArray,                    
+                };
+                         var response = await _apiService.Post("https://torneoprediccionesapi.azurewebsites.net", "/api", "/Groups", group);
+              
+
+                if (!response.IsSuccess)
+                {
+                    return RedirectToAction("Index");
+                }
+               // db.Groups.Add(group);
+               // await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.OwnerId = new SelectList(db.Users, "UserId", "FirstName", group.OwnerId);
-            return View(group);
+            ViewBag.OwnerId = new SelectList(db.Users, "UserId", "FirstName", view.OwnerId);
+            return View(view);
         }
 
         // GET: Groups/Edit/5

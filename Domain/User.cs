@@ -66,7 +66,7 @@ namespace Domain
 
                 if (UserTypeId == 1)
                 {
-                    return string.Format("http://torneopredicciones.azurewebsites.net{0}", Picture.Substring(1));
+                    return string.Format("https://torneoprediccionesapi.azurewebsites.net{0}", Picture.Substring(1));
                 }
 
                 return Picture;

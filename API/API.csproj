@@ -214,6 +214,7 @@
     <Compile Include="Models\PointsResponse.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\TournamentTeamResponse.cs" />
+    <Compile Include="Models\GroupRequest.cs" />
     <Compile Include="Models\UserResponse.cs" />
     <Compile Include="Classes\UsersHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -246,6 +247,7 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Logos\UnaFotoLindaMia.jpg" />
     <Content Include="Content\Users\UnaFotoLindaMia.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
