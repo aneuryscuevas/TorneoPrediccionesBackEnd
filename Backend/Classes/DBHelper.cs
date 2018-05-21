@@ -11,11 +11,11 @@ namespace Backend.Classes
             try
             {
                 await db.SaveChangesAsync();
-                return new Response { Succeeded = true, };
+                return new Response { IsSuccess = true, };
             }
             catch (Exception ex)
             {
-                var response = new Response { Succeeded = false, };
+                var response = new Response { IsSuccess = false, };
                 if (ex.InnerException != null &&
                     ex.InnerException.InnerException != null &&
                     ex.InnerException.InnerException.Message.Contains("_Index"))

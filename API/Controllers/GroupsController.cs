@@ -130,7 +130,7 @@ namespace API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [ResponseType(typeof(User))]
+        [ResponseType(typeof(Group))]
         public async Task<IHttpActionResult> PostGroup(GroupRequest request)
         {
             if (!ModelState.IsValid)

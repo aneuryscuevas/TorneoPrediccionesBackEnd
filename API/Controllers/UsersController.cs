@@ -142,6 +142,27 @@ namespace API.Controllers
             return Ok(new PointsResponse { Points = user.Points });
         }
 
+        [HttpGet]
+        [Route("GetGroupPoints/{id},{gId}")]
+        public async Task<IHttpActionResult> GetGroupPoints(int id,int gId)
+        {
+            var user = await _db.Users.FindAsync(id);
+            if (user == null)
+            {
+                return BadRequest("User not found");
+            }
+
+            var group = await _db.Groups.FindAsync(gId);
+            if (group == null)
+            {
+                return BadRequest("Group not found");
+            }
+
+            var groupUser = await _db.GroupUsers.Where(p => p.GroupId == gId && p.UserId == id).FirstOrDefaultAsync();
+
+            return Ok(new PointsResponse { Points = groupUser.Points });
+        }
+
         [HttpPost]
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(JObject form)

@@ -31,7 +31,7 @@ namespace Backend.Controllers
 
             return View();
         }
-        private readonly ApiService _apiService;
+      //   private readonly ApiService _apiService;
         // POST: Groups/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -54,9 +54,9 @@ namespace Backend.Controllers
                 ////user.Picture = pic;
 
                 var imageArray = FilesHelper.ReadFully(view.LogoGFile.InputStream);// _file.GetStream());
-               // _file.Dispose();
-
-                var group = new Group
+                                                                                   // _file.Dispose();
+                ApiService _apiService = new ApiService();
+                                var group = new Group
                 {
                     Logo = view.Logo,
                     Name= view.Name,

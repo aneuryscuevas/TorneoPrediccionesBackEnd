@@ -48,7 +48,7 @@ namespace Backend.Controllers
             {
                 _db.UserTypes.Add(userType);
                 var response = await DBHelper.SaveChanges(_db);
-                if (response.Succeeded)
+                if (response.IsSuccess)
                 {
                     return RedirectToAction("Index");
                 }
@@ -84,7 +84,7 @@ namespace Backend.Controllers
             {
                 _db.Entry(userType).State = EntityState.Modified;
                 var response = await DBHelper.SaveChanges(_db);
-                if (response.Succeeded)
+                if (response.IsSuccess)
                 {
                     return RedirectToAction("Index");
                 }
@@ -119,7 +119,7 @@ namespace Backend.Controllers
             var userType = await _db.UserTypes.FindAsync(id);
             _db.UserTypes.Remove(userType);
             var response = await DBHelper.SaveChanges(_db);
-            if (response.Succeeded)
+            if (response.IsSuccess)
             {
                 ModelState.AddModelError(string.Empty, response.Message);
             }
