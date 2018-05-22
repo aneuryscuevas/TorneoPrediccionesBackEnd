@@ -25,9 +25,15 @@ namespace Domain
 
         [DataType(DataType.ImageUrl)]
         public string Logo { get; set; }
-        
+
+        public int TournamentId { get; set; }
+
         [JsonIgnore]
         public virtual User Owner { get; set; }
+
+        [JsonIgnore]
+        public virtual Tournament Tournament { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<GroupUser> GroupUsers { get; set; }
 

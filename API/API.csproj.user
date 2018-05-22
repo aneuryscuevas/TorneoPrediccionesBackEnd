@@ -10,7 +10,7 @@
     <WebStackScaffolding_DbContextTypeFullName>Domain.DataContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>True</WebStackScaffolding_IsAsyncSelected>
     <ProjectView>ShowAllFiles</ProjectView>
-    <NameOfLastUsedPublishProfile>TorneoPrediccionesAPI - Web Deploy</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>TorneoPrediccionesAPI - Web Deploy %282%29</NameOfLastUsedPublishProfile>
     <LastActiveSolutionConfig>Release|Any CPU</LastActiveSolutionConfig>
     <Use64BitIISExpress />
     <IISExpressSSLPort />

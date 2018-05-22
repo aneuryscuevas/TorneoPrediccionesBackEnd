@@ -141,7 +141,7 @@ namespace Backend.Controllers
 
                             // Update points in groups
                             var groupUsers = await _db.GroupUsers.Where(gu => gu.UserId == user.UserId &&
-                                                                             gu.IsAccepted &&
+                                                                             gu.IsAccepted && gu.Group.TournamentId == oldMatch.TournamentGroup.TournamentId &&
                                                                              !gu.IsBlocked)
                                 .ToListAsync();
                             foreach (var groupUser in groupUsers)

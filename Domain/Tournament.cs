@@ -29,5 +29,7 @@ namespace Domain
         public virtual ICollection<TournamentGroup> Groups { get; set; }
         [JsonIgnore]
         public virtual ICollection<Date> Dates { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<GroupUser> GroupUsers { get; set; }
     }
 }

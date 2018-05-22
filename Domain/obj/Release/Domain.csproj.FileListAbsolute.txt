@@ -12,3 +12,17 @@ W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\obj\Releas
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\obj\Release\Domain.csprojAssemblyReference.cache
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\obj\Release\Domain.csproj.CoreCompileInputs.cache
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Domain\obj\Release\Domain.csproj.CopyComplete
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Release\Domain.dll.config
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Release\Domain.dll
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Release\Domain.pdb
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Release\EntityFramework.dll
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Release\EntityFramework.SqlServer.dll
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Release\Newtonsoft.Json.dll
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Release\EntityFramework.xml
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Release\EntityFramework.SqlServer.xml
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\bin\Release\Newtonsoft.Json.xml
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\obj\Release\Domain.csproj.CoreCompileInputs.cache
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\obj\Release\Domain.csproj.CopyComplete
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\obj\Release\Domain.dll
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\obj\Release\Domain.pdb
+F:\_DESARROLLO\TorneoPrediccionesBackEnd\Domain\obj\Release\Domain.csprojAssemblyReference.cache

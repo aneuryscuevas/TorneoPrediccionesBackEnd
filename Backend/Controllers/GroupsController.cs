@@ -28,6 +28,7 @@ namespace Backend.Controllers
         public ActionResult Create()
         {
             ViewBag.OwnerId = new SelectList(db.Users, "UserId", "FirstName");
+            ViewBag.TournamentId = new SelectList(db.Tournaments, "TournamentId", "Name");
 
             return View();
         }
@@ -56,17 +57,19 @@ namespace Backend.Controllers
                 var imageArray = FilesHelper.ReadFully(view.LogoGFile.InputStream);// _file.GetStream());
                                                                                    // _file.Dispose();
                 ApiService _apiService = new ApiService();
-                                var group = new Group
+
+                var group = new Group
                 {
                     Logo = view.Logo,
-                    Name= view.Name,
-                    OwnerId= view.OwnerId,
-                    Requirements= view.Requirements,
+                    Name = view.Name,
+                    OwnerId = view.OwnerId,
+                    Requirements = view.Requirements,
+                    TournamentId = view.TournamentId,
                     ImageArray = imageArray,                    
                 };
-                         var response = await _apiService.Post("https://torneoprediccionesapi.azurewebsites.net", "/api", "/Groups", group);
-              
 
+                var response = await _apiService.Post("https://torneoprediccionesapi.azurewebsites.net", "/api", "/Groups", group);
+              
                 if (!response.IsSuccess)
                 {
                     return RedirectToAction("Index");
@@ -77,6 +80,8 @@ namespace Backend.Controllers
             }
 
             ViewBag.OwnerId = new SelectList(db.Users, "UserId", "FirstName", view.OwnerId);
+            ViewBag.TournamentId = new SelectList(db.Tournaments, "TournamentId", "Name", view.TournamentId);
+
             return View(view);
         }
 

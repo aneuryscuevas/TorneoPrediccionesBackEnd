@@ -58,6 +58,10 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PsTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\PsTools.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -257,6 +261,7 @@
     <None Include="Properties\PublishProfiles\TorneoPredicciones - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\TorneoPredicciones - Web Deploy %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\TorneoPredicciones - Web Deploy.pubxml" />
+    <Content Include="Libs\PsTools.dll" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\datetimepicker\bootstrap-datetimepicker.css" />
@@ -390,10 +395,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\_PsDESARROLLO\PsCore\PsTools\PsTools.csproj">
-      <Project>{6654312b-5e6f-4c22-b2a1-9665825975ba}</Project>
-      <Name>PsTools</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{757ea5da-63fd-4eaf-9623-3a4373fd8d31}</Project>
       <Name>Domain</Name>

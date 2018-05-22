@@ -53,6 +53,10 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PsTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Backend\Libs\PsTools.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -247,11 +251,21 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Logos\fifa.png" />
+    <Content Include="Content\Logos\lidom.png" />
+    <Content Include="Content\Logos\lnb.png" />
+    <Content Include="Content\Logos\mlb.png" />
+    <Content Include="Content\Logos\nba.png" />
     <Content Include="Content\Logos\UnaFotoLindaMia.jpg" />
+    <Content Include="Content\Logos\x.png" />
+    <Content Include="Content\Logos\xdo.png" />
+    <Content Include="Content\Logos\xrd.jpg" />
+    <Content Include="Content\Logos\xrd.png" />
     <Content Include="Content\Users\UnaFotoLindaMia.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Libs\PsTools.dll" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -317,10 +331,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\_PsDESARROLLO\PsCore\PsTools\PsTools.csproj">
-      <Project>{6654312b-5e6f-4c22-b2a1-9665825975ba}</Project>
-      <Name>PsTools</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{757ea5da-63fd-4eaf-9623-3a4373fd8d31}</Project>
       <Name>Domain</Name>

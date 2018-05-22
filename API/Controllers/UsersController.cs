@@ -258,10 +258,17 @@ namespace API.Controllers
         {
             var groups = await _db.Groups.ToListAsync();
             var radom = new Random();
-
+            //var groupUser = new GroupUser
+            //{
+            //    GroupId = groups[radom.Next(groups.Count)].GroupId,
+            //    IsAccepted = true,
+            //    IsBlocked = false,
+            //    Points = 0,
+            //    UserId = userId,
+            //};
             var groupUser = new GroupUser
             {
-                GroupId = groups[radom.Next(groups.Count)].GroupId,
+                GroupId = 1,
                 IsAccepted = true,
                 IsBlocked = false,
                 Points = 0,
