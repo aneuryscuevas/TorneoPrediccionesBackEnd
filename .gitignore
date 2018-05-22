@@ -53,3 +53,4 @@ Backend/obj/Debug/Backend.csprojAssemblyReference.cache
 Backend/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 Domain/obj/Debug/Domain.csproj.CoreCompileInputs.cache
 NotificationTest/obj/Debug/NotificationTest.csprojAssemblyReference.cache
+Backend/obj/Release/Package/PackageTmp/Views/Account/Login.cshtml
