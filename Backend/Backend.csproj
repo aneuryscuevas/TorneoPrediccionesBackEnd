@@ -390,7 +390,7 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\PsCore\PsTools\PsTools.csproj">
+    <ProjectReference Include="..\..\..\..\_PsDESARROLLO\PsCore\PsTools\PsTools.csproj">
       <Project>{6654312b-5e6f-4c22-b2a1-9665825975ba}</Project>
       <Name>PsTools</Name>
     </ProjectReference>

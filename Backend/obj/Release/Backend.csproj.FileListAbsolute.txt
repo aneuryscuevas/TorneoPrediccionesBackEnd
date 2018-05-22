@@ -76,6 +76,9 @@ W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Backend\bin\Micro
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Backend\bin\Microsoft.Owin.Security.Google.xml
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Backend\bin\Microsoft.Owin.Security.Twitter.xml
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Backend\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Backend\obj\Release\Backend.csprojResolveAssemblyReference.cache
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Backend\obj\Release\Backend.dll
 W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Backend\obj\Release\Backend.pdb
+W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Backend\bin\Domain.dll.config
+W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Backend\obj\Release\Backend.csprojAssemblyReference.cache
+W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Backend\obj\Release\Backend.csproj.CoreCompileInputs.cache
+W:\_GITHUB\TorneoPrediccionesBackEnd\TorneoPrediccionesBackEnd\Backend\obj\Release\Backend.csproj.CopyComplete

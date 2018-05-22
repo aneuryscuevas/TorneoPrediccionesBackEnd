@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationTest", "NotificationTest\NotificationTest.csproj", "{6B629539-1697-4C46-8C98-1BB1548C2A19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsTools", "..\PsCore\PsTools\PsTools.csproj", "{6654312B-5E6F-4C22-B2A1-9665825975BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsTools", "..\..\..\_PsDESARROLLO\PsCore\PsTools\PsTools.csproj", "{6654312B-5E6F-4C22-B2A1-9665825975BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
